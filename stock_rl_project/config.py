@@ -71,6 +71,9 @@ DQN_CONFIG = {
     "epsilon_end": 0.01,
     "epsilon_decay": 0.995,
 
+    # Action selection
+    "min_trade_advantage": 0.05,    # Require this Q-gap over HOLD to trade
+
     # Target network
     "target_update_freq": 10,      # Episodes between target syncs
 
@@ -84,13 +87,17 @@ DQN_CONFIG = {
 # ============================================================
 
 REWARD_CONFIG = {
-    "profit_scale": 1.0,
-    "large_loss_penalty": -2.0,     # Extra penalty if loss > threshold
-    "large_loss_threshold": 100.0,  # Dollar loss threshold
-    "overtrade_penalty": -0.05,     # Penalty per consecutive trade
-    "risk_penalty_scale": 0.001,    # Penalize portfolio concentration
-    "consistency_bonus": 0.5,       # Bonus for consecutive positive rewards
-    "risk_reduction_bonus": 0.3,    # Bonus when reducing exposure
+    "profit_scale": 1.0,            # Scales per-step portfolio returns
+    "drawdown_scale": 0.10,         # Penalize peak-to-trough declines gently
+    "trade_penalty": 0.004,         # Stronger cost for taking a non-hold action
+    "repeat_trade_penalty": 0.002,  # Extra penalty for consecutive trading
+    "fee_scale": 1.0,               # Scale transaction fee impact
+    "slippage_scale": 1.0,          # Scale execution slippage impact
+    "positive_step_bonus": 0.002,   # Reward small profitable steps
+    "negative_step_penalty": 0.002, # Penalize small losing steps
+    "bankruptcy_penalty": 0.25,     # Extra terminal penalty when busted
+    "cooldown_penalty": 0.0015,     # Extra penalty for rapid trade flipping
+    "cooldown_steps": 3,            # Hard minimum gap between trades
 }
 
 # ============================================================

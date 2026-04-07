@@ -12,11 +12,12 @@ prints performance metrics, and generates detailed visualisation plots.
 import os
 import sys
 import numpy as np
+import pandas as pd
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
-from config import ENV_CONFIG, DQN_CONFIG, VIS_CONFIG, REAL_DATA_CONFIG
-from data.price_generator import generate_stock_prices, get_real_stock_prices
+from config import ENV_CONFIG, DQN_CONFIG, VIS_CONFIG
+from data.price_generator import generate_stock_prices
 from env.stock_env import StockTradingEnv
 from models.dqn_agent import DQNAgent
 
@@ -44,7 +45,8 @@ def evaluate(num_eval_episodes: int = 5) -> None:
     print("=" * 60)
 
     # ---- Load agent ----
-    model_path = DQN_CONFIG["save_path"]
+    project_root = os.path.dirname(os.path.abspath(__file__))
+    model_path = os.path.join(project_root, DQN_CONFIG["save_path"])
     if not os.path.exists(model_path):
         print(f"[ERROR] No saved model found at: {model_path}")
         print("  Run train.py first to train a model.")
@@ -60,39 +62,39 @@ def evaluate(num_eval_episodes: int = 5) -> None:
     # ---- Run evaluation episodes ----
     all_metrics = []
 
-    if REAL_DATA_CONFIG.get("use_real_data", False):
-        print(f"Loading real data for {REAL_DATA_CONFIG['ticker']}...")
-        base_prices = get_real_stock_prices(
-            ticker=REAL_DATA_CONFIG["ticker"],
-            period=REAL_DATA_CONFIG["period"],
-            interval=REAL_DATA_CONFIG["interval"],
-        )
-        ENV_CONFIG["num_steps"] = len(base_prices)
-    else:
-        base_prices = None
-
     for ep in range(1, num_eval_episodes + 1):
-        if base_prices is not None:
-            prices = base_prices
-        else:
-            prices = generate_stock_prices(
-                ENV_CONFIG["num_steps"],
-                seed=1000 + ep,  # Unseen data
-            )
-        env = StockTradingEnv(prices=prices)
-        state = env.reset()
+        prices = generate_stock_prices(
+            ENV_CONFIG["num_steps"],
+            seed=1000 + ep,  # Unseen data
+        )
+        market_df = _build_market_frame(prices)
+        env = StockTradingEnv(df=market_df)
+        state, _ = env.reset()
         total_reward = 0.0
+        correct_direction = 0
+        directional_attempts = 0
 
         while True:
             action = agent.select_action(state, evaluate=True)
-            next_state, reward, done, info = env.step(action)
+            current_step = env.current_step
+            current_close = float(market_df.iloc[current_step]["Close"])
+            next_close = float(market_df.iloc[min(current_step + 1, len(market_df) - 1)]["Close"])
+            if action in (1, 2):
+                directional_attempts += 1
+                if (action == 1 and next_close >= current_close) or (action == 2 and next_close <= current_close):
+                    correct_direction += 1
+
+            next_state, reward, terminated, truncated, info = env.step(action)
             total_reward += reward
             state = next_state
-            if done:
+            if terminated or truncated:
                 break
 
         metrics = env.get_metrics()
         metrics["total_reward"] = total_reward
+        metrics["directional_accuracy"] = (
+            correct_direction / directional_attempts if directional_attempts else np.nan
+        )
         all_metrics.append(metrics)
 
         profit = metrics["total_profit"]
@@ -100,11 +102,15 @@ def evaluate(num_eval_episodes: int = 5) -> None:
         max_dd = metrics["max_drawdown"]
         trades = metrics["total_trades"]
 
+        dir_acc = metrics["directional_accuracy"]
+        dir_acc_text = f"{dir_acc:.2%}" if np.isfinite(dir_acc) else "N/A"
+
         print(
             f"  Episode {ep:>2d} | "
             f"Profit: ${profit:>8.2f} | "
             f"Return: {metrics['return_pct']:>6.2f}% | "
             f"Win: {win_rate:.2%} | "
+            f"DirAcc: {dir_acc_text} | "
             f"DD: {max_dd:.2%} | "
             f"Trades: {trades:>3d} | "
             f"Reward: {total_reward:>8.2f}"
@@ -121,12 +127,15 @@ def evaluate(num_eval_episodes: int = 5) -> None:
     avg_profit = np.mean([m["total_profit"] for m in all_metrics])
     avg_return = np.mean([m["return_pct"] for m in all_metrics])
     avg_win = np.mean([m["win_rate"] for m in all_metrics])
+    dir_acc_values = [m["directional_accuracy"] for m in all_metrics if np.isfinite(m["directional_accuracy"])]
+    avg_dir_acc = np.mean(dir_acc_values) if dir_acc_values else np.nan
     avg_dd = np.mean([m["max_drawdown"] for m in all_metrics])
     avg_trades = np.mean([m["total_trades"] for m in all_metrics])
 
     print(f"  Avg Profit     : ${avg_profit:>8.2f}")
     print(f"  Avg Return     : {avg_return:>6.2f}%")
     print(f"  Avg Win Rate   : {avg_win:.2%}")
+    print(f"  Avg Dir Acc    : {avg_dir_acc:.2%}" if np.isfinite(avg_dir_acc) else "  Avg Dir Acc    : N/A")
     print(f"  Avg Max DD     : {avg_dd:.2%}")
     print(f"  Avg Trades     : {avg_trades:.1f}")
 
@@ -150,11 +159,13 @@ def evaluate(num_eval_episodes: int = 5) -> None:
 
 def _generate_eval_plots(env: StockTradingEnv, episode: int) -> None:
     """Generate detailed evaluation plots for one episode."""
-    plot_dir = VIS_CONFIG["plot_dir"]
+    plot_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), VIS_CONFIG["plot_dir"])
     os.makedirs(plot_dir, exist_ok=True)
 
     hist = env.history
-    steps = range(len(hist["price"]))
+    steps = range(len(hist["reward"]))
+    prices = hist["price"]
+    portfolio = hist["portfolio_value"][1:]
 
     fig, axes = plt.subplots(2, 2, figsize=(16, 10))
     fig.suptitle(
@@ -164,14 +175,14 @@ def _generate_eval_plots(env: StockTradingEnv, episode: int) -> None:
 
     # 1. Stock price with buy/sell markers
     ax = axes[0, 0]
-    ax.plot(steps, hist["price"], color="steelblue", linewidth=1, label="Price")
+    ax.plot(steps, prices, color="steelblue", linewidth=1, label="Price")
     buys = [i for i, a in enumerate(hist["action"]) if a == 1]
     sells = [i for i, a in enumerate(hist["action"]) if a == 2]
     if buys:
-        ax.scatter(buys, [hist["price"][i] for i in buys],
+        ax.scatter(buys, [prices[i] for i in buys],
                    marker="^", color="green", s=30, zorder=5, label="BUY")
     if sells:
-        ax.scatter(sells, [hist["price"][i] for i in sells],
+        ax.scatter(sells, [prices[i] for i in sells],
                    marker="v", color="red", s=30, zorder=5, label="SELL")
     ax.set_title("Stock Price & Trade Actions")
     ax.set_xlabel("Step")
@@ -181,11 +192,11 @@ def _generate_eval_plots(env: StockTradingEnv, episode: int) -> None:
 
     # 2. Portfolio value
     ax = axes[0, 1]
-    ax.plot(steps, hist["portfolio_value"], color="teal", linewidth=1.2)
+    ax.plot(steps, portfolio, color="teal", linewidth=1.2)
     ax.axhline(ENV_CONFIG["initial_balance"], color="gray", linestyle="--",
                linewidth=0.8, alpha=0.6, label="Initial Balance")
     ax.fill_between(
-        steps, hist["portfolio_value"], ENV_CONFIG["initial_balance"],
+        steps, portfolio, ENV_CONFIG["initial_balance"],
         alpha=0.1, color="teal",
     )
     ax.set_title("Portfolio Value")
@@ -205,7 +216,7 @@ def _generate_eval_plots(env: StockTradingEnv, episode: int) -> None:
 
     # 4. Profit over time
     ax = axes[1, 1]
-    profit_series = np.array(hist["portfolio_value"]) - ENV_CONFIG["initial_balance"]
+    profit_series = np.array(portfolio) - ENV_CONFIG["initial_balance"]
     ax.plot(steps, profit_series, color="green", linewidth=1.2)
     ax.axhline(0, color="red", linestyle="--", linewidth=0.8, alpha=0.5)
     ax.fill_between(
@@ -227,6 +238,23 @@ def _generate_eval_plots(env: StockTradingEnv, episode: int) -> None:
     plt.savefig(path, dpi=150, bbox_inches="tight")
     plt.close()
     print(f"\n[PLOT] Evaluation detail saved to {path}")
+
+
+def _build_market_frame(prices: np.ndarray) -> pd.DataFrame:
+    """Build a 4-column OHLC frame so the loaded checkpoint sees 7 features."""
+    close = np.asarray(prices, dtype=np.float32)
+    open_ = np.roll(close, 1)
+    open_[0] = close[0]
+    high = np.maximum(open_, close) * 1.002
+    low = np.minimum(open_, close) * 0.998
+    return pd.DataFrame(
+        {
+            "Open": open_,
+            "High": high,
+            "Low": low,
+            "Close": close,
+        }
+    )
 
 
 if __name__ == "__main__":

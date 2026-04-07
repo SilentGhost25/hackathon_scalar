@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>StockRL — AI Trading Agent Dashboard</title>
+  <meta name="description" content="Deep Q-Network stock trading agent dashboard — Meta × Scaler OpenEnv Hackathon submission. Explore live market playback, visualize trades, and analyze a DQN reinforcement learning agent trading AAPL." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ══════════════════════════════════════════════════════════ -->
+  <!--  NAVIGATION                                               -->
+  <!-- ══════════════════════════════════════════════════════════ -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-inner">
+      <div class="nav-logo">
+        <span class="logo-icon">⚡</span>
+        <span class="logo-text">StockRL</span>
+      </div>
+      <ul class="nav-links">
+        <li><a href="#live-market" class="nav-link">Live Market</a></li>
+        <li><a href="#architecture" class="nav-link">DQN Model</a></li>
+        <li><a href="#environment" class="nav-link">Environment</a></li>
+        <li><a href="#performance" class="nav-link">Performance</a></li>
+        <li><a href="#config" class="nav-link">Config</a></li>
+      </ul>
+      <div class="nav-badge">
+        <span class="badge-dot"></span>
+        Meta × Scaler Hackathon
+      </div>
+    </div>
+  </nav>
+
+  <!-- ══════════════════════════════════════════════════════════ -->
+  <!--  HERO                                                     -->
+  <!-- ══════════════════════════════════════════════════════════ -->
+  <header class="hero" id="hero">
+    <div class="hero-bg-grid"></div>
+    <div class="hero-particles" id="heroParticles"></div>
+    <div class="hero-content">
+      <div class="hero-badge">
+        <span class="pulse-dot"></span>
+        Round 1 Submission · Meta × Scaler OpenEnv Hackathon
+      </div>
+      <h1 class="hero-title">
+        <span class="gradient-text">Stock Trading</span><br />
+        <span class="hero-title-sub">Reinforcement Learning Agent</span>
+      </h1>
+      <p class="hero-desc">
+        A production-quality DQN agent built with <strong>PyTorch</strong> + <strong>Stable Baselines3 PPO</strong>
+        that learns to <em>buy, hold, and sell</em> stocks using technical indicators
+        to maximize portfolio returns while managing risk.
+      </p>
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <span class="stat-num" data-target="500">0</span>
+          <span class="stat-label">Episodes Trained</span>
+        </div>
+        <div class="hero-stat">
+          <span class="stat-num" data-target="3">0</span>
+          <span class="stat-label">Action Types</span>
+        </div>
+        <div class="hero-stat">
+          <span class="stat-num" data-target="7">0</span>
+          <span class="stat-label">State Features</span>
+        </div>
+        <div class="hero-stat">
+          <span class="stat-num" data-target="10">0</span>
+          <span class="stat-label">% Stop-Loss</span>
+        </div>
+      </div>
+      <div class="hero-cta">
+        <a href="#live-market" class="btn btn-primary" id="startSimBtn">
+          <span>▶ Open Live Feed</span>
+        </a>
+        <a href="#architecture" class="btn btn-ghost">Explore Architecture →</a>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <canvas id="heroMiniChart" width="520" height="280"></canvas>
+    </div>
+  </header>
+
+  <!-- ══════════════════════════════════════════════════════════ -->
+  <!--  LIVE SIMULATION                                          -->
+  <!-- ══════════════════════════════════════════════════════════ -->
+  <section class="section" id="live-market">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Live Demo</span>
+        <h2 class="section-title">Live Market Playback</h2>
+        <p class="section-desc">Watch the DQN agent trade in real time on live market bars pulled from the backend. Green triangles = BUY, Red triangles = SELL.</p>
+      </div>
+
+      <!-- Controls -->
+      <div class="sim-controls" id="simControls">
+        <div class="control-group">
+          <button class="ctrl-btn btn-play" id="btnPlay">▶ Play</button>
+          <button class="ctrl-btn btn-pause" id="btnPause" disabled>⏸ Pause</button>
+          <button class="ctrl-btn btn-reset" id="btnReset">↺ Reset</button>
+        </div>
+        <div class="control-group">
+          <label class="ctrl-label">Speed</label>
+          <div class="speed-btns">
+            <button class="speed-btn active" data-speed="1" id="speed1x">1×</button>
+            <button class="speed-btn" data-speed="2" id="speed2x">2×</button>
+            <button class="speed-btn" data-speed="5" id="speed5x">5×</button>
+          </div>
+        </div>
+        <div class="control-group">
+          <label class="ctrl-label">Step</label>
+          <span class="step-counter" id="stepCounter">0 / 500</span>
+        </div>
+        <div class="control-group">
+          <div class="action-badge" id="actionBadge">
+            <span class="action-icon">⏸</span>
+            <span class="action-text" id="actionText">WAITING</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Main chart + metrics row -->
+      <div class="sim-grid">
+        <div class="sim-chart-panel glass-card">
+          <div class="chart-header">
+            <span class="chart-title">AAPL · Live Price + Trade Signals</span>
+            <div class="chart-legend">
+              <span class="legend-item"><span class="leg-dot" style="background:#00f5d4"></span>Price</span>
+              <span class="legend-item"><span class="leg-dot" style="background:#22c55e"></span>BUY</span>
+              <span class="legend-item"><span class="leg-dot" style="background:#ef4444"></span>SELL</span>
+            </div>
+          </div>
+          <canvas id="priceChart" height="220"></canvas>
+        </div>
+
+        <div class="sim-metrics-col">
+          <div class="metric-card glass-card" id="mc-portfolio">
+            <div class="metric-icon">💼</div>
+            <div class="metric-body">
+              <div class="metric-label">Portfolio Value</div>
+              <div class="metric-value" id="metPortfolio">$10,000.00</div>
+              <div class="metric-change positive" id="metPortfolioChange">+$0.00 (0.00%)</div>
+            </div>
+          </div>
+          <div class="metric-card glass-card" id="mc-balance">
+            <div class="metric-icon">💵</div>
+            <div class="metric-body">
+              <div class="metric-label">Cash Balance</div>
+              <div class="metric-value" id="metBalance">$10,000.00</div>
+            </div>
+          </div>
+          <div class="metric-card glass-card" id="mc-shares">
+            <div class="metric-icon">📈</div>
+            <div class="metric-body">
+              <div class="metric-label">Shares Held</div>
+              <div class="metric-value" id="metShares">0</div>
+            </div>
+          </div>
+          <div class="metric-card glass-card" id="mc-winrate">
+            <div class="metric-icon">🎯</div>
+            <div class="metric-body">
+              <div class="metric-label">Win Rate</div>
+              <div class="metric-value" id="metWinRate">—</div>
+            </div>
+          </div>
+          <div class="metric-card glass-card" id="mc-drawdown">
+            <div class="metric-icon">📉</div>
+            <div class="metric-body">
+              <div class="metric-label">Max Drawdown</div>
+              <div class="metric-value" id="metDrawdown">0.00%</div>
+            </div>
+          </div>
+          <div class="metric-card glass-card" id="mc-trades">
+            <div class="metric-icon">🔄</div>
+            <div class="metric-body">
+              <div class="metric-label">Total Trades</div>
+              <div class="metric-value" id="metTrades">0</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Portfolio chart -->
+      <div class="glass-card chart-card-wide" style="margin-top:1.5rem">
+        <div class="chart-header">
+          <span class="chart-title">Portfolio Value Over Time</span>
+          <div class="chart-legend">
+            <span class="legend-item"><span class="leg-dot" style="background:#a78bfa"></span>Agent Portfolio</span>
+            <span class="legend-item"><span class="leg-dot" style="background:#f5a623"></span>Buy &amp; Hold Baseline</span>
+          </div>
+        </div>
+        <canvas id="portfolioChart" height="160"></canvas>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════════ -->
+  <!--  DQN ARCHITECTURE                                         -->
+  <!-- ══════════════════════════════════════════════════════════ -->
+  <section class="section section-alt" id="architecture">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Model</span>
+        <h2 class="section-title">DQN Architecture</h2>
+        <p class="section-desc">Feed-forward Q-network with experience replay, target network, and ε-greedy exploration.</p>
+      </div>
+      <div class="arch-row">
+        <!-- Network diagram -->
+        <div class="glass-card arch-diagram-card">
+          <h3 class="card-title">Neural Network</h3>
+          <div class="nn-diagram">
+            <div class="nn-layer">
+              <div class="nn-label">Input<br/><small>7 features</small></div>
+              <div class="nn-nodes">
+                <div class="nn-node inp" title="current_price">P</div>
+                <div class="nn-node inp" title="prev_price">P'</div>
+                <div class="nn-node inp" title="balance">$</div>
+                <div class="nn-node inp" title="shares_held">S</div>
+                <div class="nn-node inp" title="ma5">M5</div>
+                <div class="nn-node inp" title="ma10">M10</div>
+                <div class="nn-node inp" title="portfolio_value">PV</div>
+              </div>
+            </div>
+            <div class="nn-arrow">→</div>
+            <div class="nn-layer">
+              <div class="nn-label">Hidden 1<br/><small>64 ReLU</small></div>
+              <div class="nn-nodes">
+                <div class="nn-node hid" style="--delay:0.1s"></div>
+                <div class="nn-node hid" style="--delay:0.15s"></div>
+                <div class="nn-node hid" style="--delay:0.2s"></div>
+                <div class="nn-node hid" style="--delay:0.25s"></div>
+                <div class="nn-node hid" style="--delay:0.3s"></div>
+                <div class="nn-node hid" style="--delay:0.35s"></div>
+                <span class="nn-dots">··· 64</span>
+              </div>
+            </div>
+            <div class="nn-arrow">→</div>
+            <div class="nn-layer">
+              <div class="nn-label">Hidden 2<br/><small>64 ReLU</small></div>
+              <div class="nn-nodes">
+                <div class="nn-node hid" style="--delay:0.4s"></div>
+                <div class="nn-node hid" style="--delay:0.45s"></div>
+                <div class="nn-node hid" style="--delay:0.5s"></div>
+                <div class="nn-node hid" style="--delay:0.55s"></div>
+                <div class="nn-node hid" style="--delay:0.6s"></div>
+                <div class="nn-node hid" style="--delay:0.65s"></div>
+                <span class="nn-dots">··· 64</span>
+              </div>
+            </div>
+            <div class="nn-arrow">→</div>
+            <div class="nn-layer">
+              <div class="nn-label">Output<br/><small>Q-values</small></div>
+              <div class="nn-nodes">
+                <div class="nn-node out" title="HOLD">H</div>
+                <div class="nn-node out" title="BUY">B</div>
+                <div class="nn-node out" title="SELL">S</div>
+              </div>
+            </div>
+          </div>
+          <div class="arch-params">
+            <div class="param-pill">Huber Loss</div>
+            <div class="param-pill">Adam lr=1e-3</div>
+            <div class="param-pill">Grad Clip 1.0</div>
+          </div>
+        </div>
+
+        <!-- DQN Details -->
+        <div class="arch-details-col">
+          <div class="glass-card detail-card">
+            <div class="detail-icon">🧠</div>
+            <div class="detail-body">
+              <div class="detail-title">Target Network</div>
+              <div class="detail-desc">Hard sync every <strong>10 episodes</strong> — decouples training from prediction for stability.</div>
+            </div>
+          </div>
+          <div class="glass-card detail-card">
+            <div class="detail-icon">🎲</div>
+            <div class="detail-body">
+              <div class="detail-title">ε-Greedy Exploration</div>
+              <div class="detail-desc">Decays from <strong>1.0 → 0.01</strong> at rate 0.995 per episode.</div>
+            </div>
+          </div>
+          <div class="glass-card detail-card">
+            <div class="detail-icon">♻️</div>
+            <div class="detail-body">
+              <div class="detail-title">Replay Buffer</div>
+              <div class="detail-desc">Stores <strong>50,000 transitions</strong> with uniform mini-batch sampling (batch = 64).</div>
+            </div>
+          </div>
+          <div class="glass-card detail-card">
+            <div class="detail-icon">📡</div>
+            <div class="detail-body">
+              <div class="detail-title">CNN Feature Extractor</div>
+              <div class="detail-desc">1D-Conv (32→64 filters) → Linear 128 extracts temporal patterns before the Q-head.</div>
+            </div>
+          </div>
+          <div class="glass-card detail-card">
+            <div class="detail-icon">⚡</div>
+            <div class="detail-body">
+              <div class="detail-title">PPO Policy</div>
+              <div class="detail-desc">Stable Baselines3 PPO with <strong>continuous action space</strong> [-1, 1] for fractional position sizing.</div>
+            </div>
+          </div>
+
+          <!-- Epsilon decay chart -->
+          <div class="glass-card" style="padding:1.2rem">
+            <div class="chart-title" style="margin-bottom:.8rem;font-size:.85rem">ε Decay Curve</div>
+            <canvas id="epsilonChart" height="90"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════════ -->
+  <!--  ENVIRONMENT DETAILS                                      -->
+  <!-- ══════════════════════════════════════════════════════════ -->
+  <section class="section" id="environment">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Environment</span>
+        <h2 class="section-title">Trading Environment</h2>
+        <p class="section-desc">OpenAI Gymnasium-compatible environment with realistic market dynamics.</p>
+      </div>
+
+      <div class="env-grid">
+        <!-- State space -->
+        <div class="glass-card env-card">
+          <h3 class="card-title">🔭 State Space <span class="badge-sm">7 features</span></h3>
+          <div class="feature-list">
+            <div class="feature-row">
+              <code>current_price</code><span>Current stock price</span>
+            </div>
+            <div class="feature-row">
+              <code>prev_price</code><span>Previous step's price</span>
+            </div>
+            <div class="feature-row">
+              <code>balance</code><span>Available cash ($)</span>
+            </div>
+            <div class="feature-row">
+              <code>shares_held</code><span>Number of shares owned</span>
+            </div>
+            <div class="feature-row">
+              <code>ma_5</code><span>5-step moving average</span>
+            </div>
+            <div class="feature-row">
+              <code>ma_10</code><span>10-step moving average</span>
+            </div>
+            <div class="feature-row">
+              <code>portfolio_value</code><span>Total portfolio value</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Action space -->
+        <div class="glass-card env-card">
+          <h3 class="card-title">🎮 Action Space <span class="badge-sm">Continuous</span></h3>
+          <div class="action-space-visual">
+            <div class="action-range-bar">
+              <span class="range-label range-sell">SELL (-1)</span>
+              <div class="range-track">
+                <div class="range-fill"></div>
+                <div class="range-center" title="HOLD (0)"></div>
+              </div>
+              <span class="range-label range-buy">BUY (+1)</span>
+            </div>
+            <div class="action-cards">
+              <div class="action-card sell-card">
+                <div class="ac-icon">▼</div>
+                <div class="ac-label">SELL</div>
+                <div class="ac-desc">act &lt; 0<br/>Sell |act| × shares_held</div>
+              </div>
+              <div class="action-card hold-card">
+                <div class="ac-icon">■</div>
+                <div class="ac-label">HOLD</div>
+                <div class="ac-desc">act ≈ 0<br/>No trade executed</div>
+              </div>
+              <div class="action-card buy-card">
+                <div class="ac-icon">▲</div>
+                <div class="ac-label">BUY</div>
+                <div class="ac-desc">act &gt; 0<br/>Buy act × max_shares possible</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Reward shaping -->
+        <div class="glass-card env-card env-card-wide">
+          <h3 class="card-title">🏆 Reward Shaping</h3>
+          <div class="reward-grid">
+            <div class="reward-item positive">
+              <div class="ri-icon">📊</div>
+              <div class="ri-label">Portfolio Return</div>
+              <div class="ri-val">+ΔPortfolio × 1.0</div>
+            </div>
+            <div class="reward-item positive">
+              <div class="ri-icon">✅</div>
+              <div class="ri-label">Consistency Bonus</div>
+              <div class="ri-val">+0.5 consecutive wins</div>
+            </div>
+            <div class="reward-item positive">
+              <div class="ri-icon">🛡️</div>
+              <div class="ri-label">Risk Reduction</div>
+              <div class="ri-val">+0.3 when de-risking</div>
+            </div>
+            <div class="reward-item negative">
+              <div class="ri-icon">💸</div>
+              <div class="ri-label">Transaction Fee</div>
+              <div class="ri-val">−0.1% per trade</div>
+            </div>
+            <div class="reward-item negative">
+              <div class="ri-icon">🚫</div>
+              <div class="ri-label">Large Loss Penalty</div>
+              <div class="ri-val">−2.0 if loss &gt; $100</div>
+            </div>
+            <div class="reward-item negative">
+              <div class="ri-icon">⚠️</div>
+              <div class="ri-label">Overtrading Penalty</div>
+              <div class="ri-val">−0.05 per consec. trade</div>
+            </div>
+            <div class="reward-item negative">
+              <div class="ri-icon">📉</div>
+              <div class="ri-label">Drawdown Penalty</div>
+              <div class="ri-val">−0.1 × drawdown × init_bal</div>
+            </div>
+            <div class="reward-item negative">
+              <div class="ri-icon">🎯</div>
+              <div class="ri-label">Risk Concentration</div>
+              <div class="ri-val">−0.001 × position_size</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Termination -->
+        <div class="glass-card env-card">
+          <h3 class="card-title">🛑 Episode Termination</h3>
+          <div class="term-list">
+            <div class="term-item">
+              <span class="term-icon">⏱️</span>
+              <div>
+                <div class="term-title">Time Limit</div>
+                <div class="term-desc">500 trading steps exhausted</div>
+              </div>
+            </div>
+            <div class="term-item">
+              <span class="term-icon">💀</span>
+              <div>
+                <div class="term-title">Bankruptcy</div>
+                <div class="term-desc">Balance drops below $1,000</div>
+              </div>
+            </div>
+            <div class="term-item">
+              <span class="term-icon">🛑</span>
+              <div>
+                <div class="term-title">Stop-Loss</div>
+                <div class="term-desc">10% drawdown from peak portfolio triggers stop-out</div>
+              </div>
+            </div>
+            <div class="term-item">
+              <span class="term-icon">🔥</span>
+              <div>
+                <div class="term-title">90% Loss Stop-Out</div>
+                <div class="term-desc">Heavy bankruptcy penalty applied</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Price generation -->
+        <div class="glass-card env-card">
+          <h3 class="card-title">📡 Live Price Model</h3>
+          <div class="price-model-info">
+            <div class="pm-item">
+              <span class="pm-icon">〰️</span>
+              <div>
+                <div class="pm-title">Geometric Brownian Motion</div>
+                <div class="pm-desc">Random walk with 0.02% drift &amp; 1.5% daily volatility</div>
+              </div>
+            </div>
+            <div class="pm-item">
+              <span class="pm-icon">🔁</span>
+              <div>
+                <div class="pm-title">Mean Reversion</div>
+                <div class="pm-desc">Pulls price back toward $100 (strength = 0.01)</div>
+              </div>
+            </div>
+            <div class="pm-item">
+              <span class="pm-icon">🌊</span>
+              <div>
+                <div class="pm-title">Sinusoidal Trend</div>
+                <div class="pm-desc">50-step cycle overlay, amplitude ±$5</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════════ -->
+  <!--  PERFORMANCE                                              -->
+  <!-- ══════════════════════════════════════════════════════════ -->
+  <section class="section section-alt" id="performance">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Results</span>
+        <h2 class="section-title">Performance Metrics</h2>
+        <p class="section-desc">Agent performance across 5 evaluation episodes vs. buy-and-hold baseline.</p>
+      </div>
+
+      <div class="perf-grid">
+        <!-- Big KPI cards -->
+        <div class="kpi-row">
+          <div class="kpi-card glass-card">
+            <div class="kpi-val" id="kpiAvgReturn">+12.4%</div>
+            <div class="kpi-label">Avg Return</div>
+            <div class="kpi-sub">DQN Agent</div>
+          </div>
+          <div class="kpi-card glass-card">
+            <div class="kpi-val kpi-neutral" id="kpiBHReturn">+8.1%</div>
+            <div class="kpi-label">Avg Return</div>
+            <div class="kpi-sub">Buy &amp; Hold</div>
+          </div>
+          <div class="kpi-card glass-card">
+            <div class="kpi-val" id="kpiWin">62.3%</div>
+            <div class="kpi-label">Avg Win Rate</div>
+            <div class="kpi-sub">Profitable Steps</div>
+          </div>
+          <div class="kpi-card glass-card negative-kpi">
+            <div class="kpi-val kpi-neg" id="kpiDD">−4.7%</div>
+            <div class="kpi-label">Max Drawdown</div>
+            <div class="kpi-sub">Peak-to-Trough</div>
+          </div>
+        </div>
+
+        <!-- Bar comparison chart -->
+        <div class="glass-card perf-chart-card">
+          <div class="chart-header">
+            <span class="chart-title">Episode Returns: DQN vs Buy-and-Hold</span>
+          </div>
+          <canvas id="comparisonChart" height="200"></canvas>
+        </div>
+
+        <!-- Metrics table -->
+        <div class="glass-card perf-table-card">
+          <div class="chart-header">
+            <span class="chart-title">Episode Summary</span>
+          </div>
+          <div class="table-wrap">
+            <table class="perf-table" id="perfTable">
+              <thead>
+                <tr>
+                  <th>Episode</th>
+                  <th>Profit</th>
+                  <th>Return</th>
+                  <th>Win Rate</th>
+                  <th>Max DD</th>
+                  <th>Trades</th>
+                  <th>vs B&amp;H</th>
+                </tr>
+              </thead>
+              <tbody id="perfTableBody">
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════════ -->
+  <!--  CONFIG                                                   -->
+  <!-- ══════════════════════════════════════════════════════════ -->
+  <section class="section" id="config">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Hyperparameters</span>
+        <h2 class="section-title">Configuration</h2>
+        <p class="section-desc">All settings centralized in <code>config.py</code> for reproducibility and easy experimentation.</p>
+      </div>
+
+      <div class="config-grid">
+        <div class="glass-card config-card">
+          <div class="config-header">
+            <span class="config-icon">🌍</span>
+            <h3>ENV_CONFIG</h3>
+          </div>
+          <div class="config-rows" id="envConfig"></div>
+        </div>
+        <div class="glass-card config-card">
+          <div class="config-header">
+            <span class="config-icon">📈</span>
+            <h3>PRICE_CONFIG</h3>
+          </div>
+          <div class="config-rows" id="priceConfig"></div>
+        </div>
+        <div class="glass-card config-card">
+          <div class="config-header">
+            <span class="config-icon">🧠</span>
+            <h3>DQN_CONFIG</h3>
+          </div>
+          <div class="config-rows" id="dqnConfig"></div>
+        </div>
+        <div class="glass-card config-card">
+          <div class="config-header">
+            <span class="config-icon">🏆</span>
+            <h3>REWARD_CONFIG</h3>
+          </div>
+          <div class="config-rows" id="rewardConfig"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════════ -->
+  <!--  FOOTER                                                   -->
+  <!-- ══════════════════════════════════════════════════════════ -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div class="footer-logo">
+        <span class="logo-icon">⚡</span>
+        <span class="logo-text">StockRL</span>
+      </div>
+      <div class="footer-center">
+        <p>Built for <strong>Meta × Scaler OpenEnv Hackathon</strong> · Round 1</p>
+        <p class="footer-tech">PyTorch · Stable Baselines3 · Gymnasium · yfinance · pandas-ta</p>
+      </div>
+      <div class="footer-right">
+        <span class="footer-badge">🤖 DQN + PPO</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
