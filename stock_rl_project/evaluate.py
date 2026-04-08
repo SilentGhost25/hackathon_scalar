@@ -5,6 +5,7 @@ import sys
 from pathlib import Path
 
 import numpy as np
+import pandas as pd
 
 ROOT = Path(__file__).resolve().parent
 sys.path.insert(0, str(ROOT))
@@ -202,6 +203,23 @@ def evaluate() -> None:
     print(f"Random decision accuracy  : {rand_accuracy:.2%}")
     print(f"Random trade win rate    : {rand_trade_win:.2%}")
     print(f"Buy-and-hold value       : ${buy_and_hold_value:,.2f}")
+
+
+def _build_market_frame(prices: np.ndarray) -> pd.DataFrame:
+    """Build a 4-column OHLC frame so the loaded checkpoint sees 7 features."""
+    close = np.asarray(prices, dtype=np.float32)
+    open_ = np.roll(close, 1)
+    open_[0] = close[0]
+    high = np.maximum(open_, close) * 1.002
+    low = np.minimum(open_, close) * 0.998
+    return pd.DataFrame(
+        {
+            "Open": open_,
+            "High": high,
+            "Low": low,
+            "Close": close,
+        }
+    )
 
 
 if __name__ == "__main__":

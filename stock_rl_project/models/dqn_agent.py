@@ -54,6 +54,35 @@ class QNetwork(nn.Module):
         return self.net(x)
 
 
+class DuelingQNetwork(nn.Module):
+    """Dueling DQN architecture with shared feature trunk and value/advantage heads."""
+
+    def __init__(self, state_size: int, action_size: int, hidden1: int = 64, hidden2: int = 64):
+        super().__init__()
+        self.feature = nn.Sequential(
+            nn.Linear(state_size, hidden1),
+            nn.ReLU(),
+            nn.Linear(hidden1, hidden2),
+            nn.ReLU(),
+        )
+        self.value = nn.Sequential(
+            nn.Linear(hidden2, hidden2),
+            nn.ReLU(),
+            nn.Linear(hidden2, 1),
+        )
+        self.advantage = nn.Sequential(
+            nn.Linear(hidden2, hidden2),
+            nn.ReLU(),
+            nn.Linear(hidden2, action_size),
+        )
+
+    def forward(self, x: torch.Tensor) -> torch.Tensor:
+        features = self.feature(x)
+        value = self.value(features)
+        advantage = self.advantage(features)
+        return value + advantage - advantage.mean(dim=1, keepdim=True)
+
+
 # ============================================================
 # Replay Buffer
 # ============================================================
@@ -115,8 +144,8 @@ class DQNAgent:
         # Networks
         h1 = self.cfg["hidden_dim_1"]
         h2 = self.cfg["hidden_dim_2"]
-        self.policy_net = QNetwork(state_size, action_size, h1, h2).to(self.device)
-        self.target_net = QNetwork(state_size, action_size, h1, h2).to(self.device)
+        self.policy_net = DuelingQNetwork(state_size, action_size, h1, h2).to(self.device)
+        self.target_net = DuelingQNetwork(state_size, action_size, h1, h2).to(self.device)
         self.target_net.load_state_dict(self.policy_net.state_dict())
         self.target_net.eval()  # Target net is never trained directly
 
@@ -138,6 +167,7 @@ class DQNAgent:
         self.gamma = self.cfg["gamma"]
         self.batch_size = self.cfg["batch_size"]
         self.train_step_count = 0
+        self.min_trade_advantage = self.cfg.get("min_trade_advantage", 0.0)
 
     # ----------------------------------------------------------------
     # Action selection
@@ -164,7 +194,11 @@ class DQNAgent:
         state_t = torch.FloatTensor(state).unsqueeze(0).to(self.device)
         with torch.no_grad():
             q_values = self.policy_net(state_t)
-        return q_values.argmax(dim=1).item()
+        best_action = q_values.argmax(dim=1).item()
+        hold_q = q_values[0, 0].item()
+        if best_action != 0 and (q_values[0, best_action].item() - hold_q) < self.min_trade_advantage:
+            return 0
+        return best_action
 
     # ----------------------------------------------------------------
     # Learning
