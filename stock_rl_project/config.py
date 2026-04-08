@@ -19,8 +19,7 @@ ENV_CONFIG = {
     "stop_loss_pct": 0.10,          # 10 % stop-loss from peak portfolio
 
     # State features
-    "state_size": 7,                # price, prev_price, balance, shares,
-                                    # ma5, ma10, portfolio_value
+    "state_size": 12,               # Normalised market + portfolio features
 
     # Action space
     "action_size": 3,               # 0=HOLD, 1=BUY, 2=SELL
@@ -57,25 +56,25 @@ REAL_DATA_CONFIG = {
 
 DQN_CONFIG = {
     # Network
-    "hidden_dim_1": 64,
-    "hidden_dim_2": 64,
+    "hidden_dim_1": 128,
+    "hidden_dim_2": 128,
 
     # Training
-    "learning_rate": 1e-3,
-    "gamma": 0.99,                 # Discount factor
-    "batch_size": 64,
-    "replay_buffer_size": 50_000,
+    "learning_rate": 5e-4,
+    "gamma": 0.995,                # Discount factor
+    "batch_size": 128,
+    "replay_buffer_size": 100_000,
 
     # Exploration
     "epsilon_start": 1.0,
-    "epsilon_end": 0.01,
-    "epsilon_decay": 0.995,
+    "epsilon_end": 0.02,
+    "epsilon_decay": 0.997,
 
     # Target network
-    "target_update_freq": 10,      # Episodes between target syncs
+    "target_update_freq": 5,       # Episodes between target syncs
 
     # Training schedule
-    "num_episodes": 500,
+    "num_episodes": 300,
     "save_path": "saved_models/dqn_trading.pth",
 }
 

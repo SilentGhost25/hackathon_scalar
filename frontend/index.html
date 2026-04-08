@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>StockRL Trade Desk</title>
+  <meta
+    name="description"
+    content="Live trading dashboard with real market quotes, wallet balance, portfolio tracking, and AI recommendations."
+  />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700;700&display=swap"
+    rel="stylesheet"
+  />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <nav class="navbar" id="navbar">
+    <div class="nav-inner">
+      <div class="brand">
+        <span class="brand-mark">▣</span>
+        <div>
+          <div class="brand-name">StockRL</div>
+          <div class="brand-sub">Live Trade Desk</div>
+        </div>
+      </div>
+
+      <div class="nav-links">
+        <a href="#dashboard">Dashboard</a>
+        <a href="#trade">Trade</a>
+        <a href="#account">My Account</a>
+        <a href="#transactions">Transactions</a>
+      </div>
+
+      <div class="nav-status" id="connectionStatus">
+        <span class="status-dot"></span>
+        Connecting to market feed
+      </div>
+    </div>
+  </nav>
+
+  <header class="hero" id="dashboard">
+    <div class="hero-copy">
+      <div class="eyebrow">Hackathon Trading Console</div>
+      <h1>
+        Clear market signals,
+        <span>actionable trades</span>
+      </h1>
+      <p>
+        A cleaner trading workspace with live quotes, portfolio tracking, and an explainable AI trade blueprint.
+        Built to feel closer to a modern brokerage than a lab project.
+      </p>
+
+      <div class="hero-stats">
+        <div class="stat-card">
+          <span>Cash</span>
+          <strong id="balanceValue">$0.00</strong>
+        </div>
+        <div class="stat-card">
+          <span>Portfolio</span>
+          <strong id="portfolioValue">$0.00</strong>
+        </div>
+        <div class="stat-card">
+          <span>P / L</span>
+          <strong id="pnlValue">$0.00</strong>
+        </div>
+        <div class="stat-card">
+          <span>Holdings</span>
+          <strong id="holdingCount">0</strong>
+        </div>
+        <div class="stat-card">
+          <span>Edge score</span>
+          <strong id="edgeScoreValue">50</strong>
+        </div>
+      </div>
+    </div>
+
+    <div class="quote-panel card">
+      <div class="panel-top">
+        <div>
+          <div class="panel-label">Live Market</div>
+          <h2 id="quoteSymbol">AAPL</h2>
+        </div>
+        <div class="symbol-switcher">
+          <label for="symbolInput">Symbol</label>
+          <input id="symbolInput" type="text" value="AAPL" maxlength="12" />
+        </div>
+      </div>
+
+      <div class="watchlist" id="watchlist">
+        <button class="watch-btn active" data-symbol="AAPL">AAPL</button>
+        <button class="watch-btn" data-symbol="MSFT">MSFT</button>
+        <button class="watch-btn" data-symbol="NVDA">NVDA</button>
+        <button class="watch-btn" data-symbol="SPY">SPY</button>
+      </div>
+
+      <div class="market-strip">
+        <div>
+          <span>Market bias</span>
+          <strong id="marketBiasValue">Neutral</strong>
+        </div>
+        <div>
+          <span>Momentum</span>
+          <strong id="momentumValue">0.00%</strong>
+        </div>
+        <div>
+          <span>RSI</span>
+          <strong id="rsiValue">50.0</strong>
+        </div>
+        <div>
+          <span>Volume ratio</span>
+          <strong id="volumeRatioValue">0.00x</strong>
+        </div>
+      </div>
+
+      <div class="quote-grid">
+        <div class="quote-metric">
+          <span>Current Price</span>
+          <strong id="currentPrice">$0.00</strong>
+        </div>
+        <div class="quote-metric">
+          <span>Change</span>
+          <strong id="priceChange">0.00%</strong>
+        </div>
+        <div class="quote-metric">
+          <span>Volume</span>
+          <strong id="volumeValue">0</strong>
+        </div>
+        <div class="quote-metric">
+          <span>Trend</span>
+          <strong id="trendValue">Neutral</strong>
+        </div>
+      </div>
+
+      <div class="chart-wrap chart-wrap--price">
+        <canvas id="priceChart"></canvas>
+      </div>
+
+      <div class="chart-card-inline">
+        <div class="table-header">
+          <h3>Live Market Value</h3>
+          <span id="marketValueLabel">AAPL position value</span>
+        </div>
+        <div class="chart-wrap chart-wrap--marketvalue">
+          <canvas id="marketValueChart"></canvas>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="section" id="trade">
+      <div class="section-heading">
+        <div>
+          <div class="section-tag">Trade</div>
+          <h2>Order Entry</h2>
+        </div>
+        <p>Execute buy, sell, and hold actions against live prices. The form mirrors the account state below.</p>
+      </div>
+
+      <div class="trade-layout">
+        <div class="card trade-card">
+          <div class="trade-headline">
+            <div>
+              <div class="panel-label">Order Ticket</div>
+              <h3>Fast, guided execution</h3>
+            </div>
+            <div class="ticket-pill" id="blueprintSummary">Live blueprint ready</div>
+          </div>
+          <div class="trade-row">
+            <label>
+              Symbol
+              <input id="tradeSymbol" type="text" value="AAPL" maxlength="12" />
+            </label>
+            <label>
+              Order Type
+              <select id="orderType">
+                <option value="market">Market</option>
+                <option value="limit">Limit</option>
+              </select>
+            </label>
+            <label>
+              Limit Price
+              <input id="limitPrice" type="number" step="0.01" min="0" placeholder="Optional" />
+            </label>
+            <label>
+              Quantity
+              <input id="tradeQuantity" type="number" step="1" min="1" value="1" />
+            </label>
+            <label>
+              Market Price
+              <input id="tradePrice" type="number" step="0.01" min="0" />
+            </label>
+          </div>
+
+          <div class="trade-actions">
+            <button class="trade-btn buy" data-action="buy">BUY</button>
+            <button class="trade-btn sell" data-action="sell">SELL</button>
+            <button class="trade-btn hold" data-action="hold">HOLD</button>
+          </div>
+
+          <div class="trade-note" id="tradeNote">Orders are written to SQLite and reflected in your account instantly.</div>
+        </div>
+
+        <div class="card ai-card">
+          <div class="panel-top">
+            <div>
+              <div class="panel-label">AI Blueprint</div>
+              <h3 id="recommendationAction">WAITING</h3>
+            </div>
+            <button class="ghost-btn" id="executeAiTrade" disabled>Execute AI Trade</button>
+          </div>
+
+          <div class="ai-score">
+            <span>Confidence</span>
+            <strong id="recommendationConfidence">0%</strong>
+          </div>
+
+          <div class="signal-grid">
+            <div class="signal-card">
+              <span>Edge score</span>
+              <strong id="recommendationEdge">50</strong>
+            </div>
+            <div class="signal-card">
+              <span>Risk / reward</span>
+              <strong id="recommendationRR">1.00</strong>
+            </div>
+            <div class="signal-card">
+              <span>Target</span>
+              <strong id="recommendationTarget">$0.00</strong>
+            </div>
+            <div class="signal-card">
+              <span>Stop</span>
+              <strong id="recommendationStop">$0.00</strong>
+            </div>
+          </div>
+
+          <div class="signal-strip">
+            <div>
+              <span>Regime</span>
+              <strong id="recommendationRegime">Neutral / wait</strong>
+            </div>
+            <div>
+              <span>Model vote</span>
+              <strong id="modelVoteValue">-</strong>
+            </div>
+          </div>
+
+          <p id="recommendationReason" class="ai-reason">Loading recommendation...</p>
+          <div class="factor-list" id="signalFactors"></div>
+        </div>
+      </div>
+
+      <div class="card scenario-card">
+        <div class="panel-top">
+          <div>
+            <div class="panel-label">Scenario Lab</div>
+            <h3>What-if trade simulator</h3>
+          </div>
+          <button class="ghost-btn" id="runScenarioBtn">Run scenario</button>
+        </div>
+
+        <p class="scenario-copy">
+          Test a price shock before you trade. See how a move changes your open position, account value, and AI signal.
+        </p>
+
+        <div class="scenario-controls">
+          <label>
+            Expected move %
+            <input id="scenarioMove" type="number" step="0.5" min="-50" max="50" value="5" />
+          </label>
+          <label>
+            Hypothetical size
+            <input id="scenarioQuantity" type="number" step="1" min="1" value="10" />
+          </label>
+        </div>
+
+        <div class="scenario-output">
+          <div class="scenario-metric">
+            <span>Shocked price</span>
+            <strong id="scenarioPrice">$0.00</strong>
+          </div>
+          <div class="scenario-metric">
+            <span>Portfolio delta</span>
+            <strong id="scenarioPortfolioDelta">$0.00</strong>
+          </div>
+          <div class="scenario-metric">
+            <span>Hypothetical P / L</span>
+            <strong id="scenarioHypotheticalPnl">$0.00</strong>
+          </div>
+          <div class="scenario-metric">
+            <span>Signal after shock</span>
+            <strong id="scenarioAction">WAITING</strong>
+          </div>
+        </div>
+
+        <div class="scenario-strip">
+          <div>
+            <span>Scenario confidence</span>
+            <strong id="scenarioConfidence">0%</strong>
+          </div>
+          <div>
+            <span>Scenario edge</span>
+            <strong id="scenarioEdge">50</strong>
+          </div>
+          <div>
+            <span>Account value</span>
+            <strong id="scenarioAccountValue">$0.00</strong>
+          </div>
+        </div>
+
+        <p id="scenarioReason" class="scenario-reason">Run a scenario to see how the signal changes.</p>
+      </div>
+    </section>
+
+    <section class="section section-alt" id="account">
+      <div class="section-heading">
+        <div>
+          <div class="section-tag">My Account</div>
+          <h2>Wallet and Portfolio</h2>
+        </div>
+        <p>Track balance, invested capital, live portfolio value, and position-level P / L in one place.</p>
+      </div>
+
+      <div class="account-grid">
+        <div class="card summary-card">
+          <span>Available Balance</span>
+          <strong id="availableBalance">$0.00</strong>
+        </div>
+        <div class="card summary-card">
+          <span>Total Invested</span>
+          <strong id="totalInvested">$0.00</strong>
+        </div>
+        <div class="card summary-card">
+          <span>Portfolio Value</span>
+          <strong id="accountPortfolioValue">$0.00</strong>
+        </div>
+        <div class="card summary-card">
+          <span>Profit / Loss</span>
+          <strong id="accountPnL">$0.00</strong>
+        </div>
+      </div>
+
+      <div class="card table-card">
+        <div class="table-header">
+          <h3>Portfolio</h3>
+          <span id="portfolioCount">0 positions</span>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Symbol</th>
+                <th>Quantity</th>
+                <th>Avg Buy Price</th>
+                <th>Current Price</th>
+                <th>Value</th>
+                <th>P / L</th>
+              </tr>
+            </thead>
+            <tbody id="portfolioTableBody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="card chart-card">
+        <div class="table-header">
+          <h3>Allocation</h3>
+          <span>Current holdings by market value</span>
+        </div>
+        <div class="chart-wrap chart-wrap--allocation">
+          <canvas id="allocationChart"></canvas>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="transactions">
+      <div class="section-heading">
+        <div>
+          <div class="section-tag">Transactions</div>
+          <h2>History</h2>
+        </div>
+        <p>Newest trades first with quick filters for today, the last 7 days, the last 30 days, or the full ledger.</p>
+      </div>
+
+      <div class="filters" id="transactionFilters">
+        <button class="filter-btn active" data-range="today">Today</button>
+        <button class="filter-btn" data-range="7d">Last 7 days</button>
+        <button class="filter-btn" data-range="30d">Last 30 days</button>
+        <button class="filter-btn" data-range="all">All time</button>
+      </div>
+
+      <div class="card table-card">
+        <div class="table-header">
+          <h3>Transaction Ledger</h3>
+          <span id="transactionCount">0 records</span>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Type</th>
+                <th>Order</th>
+                <th>Symbol</th>
+                <th>Quantity</th>
+                <th>Price</th>
+                <th>Total</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody id="transactionsTableBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div>
+        <div class="brand-name">StockRL</div>
+        <div class="brand-sub">Live trading interface powered by RL signals and market data</div>
+      </div>
+      <div class="footer-copy">Built for the Scaler hackathon with persistent orders, portfolio tracking, and AI recommendations.</div>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

@@ -35,16 +35,18 @@ class QNetwork(nn.Module):
     Simple feed-forward Q-network.
 
     Architecture:
-        Input(state_size) → 64 → ReLU → 64 → ReLU → Output(action_size)
+        Input(state_size) → 128 → LayerNorm → GELU → 128 → LayerNorm → GELU → Output(action_size)
     """
 
-    def __init__(self, state_size: int, action_size: int, hidden1: int = 64, hidden2: int = 64):
+    def __init__(self, state_size: int, action_size: int, hidden1: int = 128, hidden2: int = 128):
         super().__init__()
         self.net = nn.Sequential(
             nn.Linear(state_size, hidden1),
-            nn.ReLU(),
+            nn.LayerNorm(hidden1),
+            nn.GELU(),
             nn.Linear(hidden1, hidden2),
-            nn.ReLU(),
+            nn.LayerNorm(hidden2),
+            nn.GELU(),
             nn.Linear(hidden2, action_size),
         )
 
@@ -206,7 +208,8 @@ class DQNAgent:
 
         # Target Q-values (from frozen target network)
         with torch.no_grad():
-            next_q = self.target_net(next_states_t).max(dim=1, keepdim=True)[0]
+            next_actions = self.policy_net(next_states_t).argmax(dim=1, keepdim=True)
+            next_q = self.target_net(next_states_t).gather(1, next_actions)
             target_q = rewards_t + self.gamma * next_q * (1 - dones_t)
 
         # Compute loss and back-propagate

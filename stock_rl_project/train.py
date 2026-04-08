@@ -1,174 +1,149 @@
-"""
-Training Script for the Stock Trading PPO Agent
-=================================================
+from __future__ import annotations
 
-Trains a PPO agent on actual stock data fetched via yfinance.
-Incorporates:
-- Custom Gymnasium StockTradingEnv
-- VecNormalize for state/reward scaling
-- pandas-ta for technical indicators
-- Custom CNN feature extractor (LSTM/1D-Conv)
-- Walk-forward evaluation on separate test set.
-"""
-
+import json
 import os
 import sys
-import torch as th
-import torch.nn as nn
+from pathlib import Path
+
 import numpy as np
-import pandas as pd
-import yfinance as yf
-import pandas_ta as ta
 
-from stable_baselines3 import PPO
-from stable_baselines3.common.vec_env import DummyVecEnv, VecNormalize
-from stable_baselines3.common.torch_layers import BaseFeaturesExtractor
+ROOT = Path(__file__).resolve().parent
+sys.path.insert(0, str(ROOT))
 
-# Ensure project root is on path
-sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from env.stock_env import StockTradingEnv
+from config import DQN_CONFIG, ENV_CONFIG
+from features import STATE_SIZE
+from models.dqn_agent import DQNAgent
+from pipeline import TradingEpisodeEnv, load_market_history
 
-# ============================================================
-# 1. Custom CNN Features Extractor
-# ============================================================
-class StockCNNFeaturesExtractor(BaseFeaturesExtractor):
-    """
-    Extends SB3 to use a 1D-Conv network as requested.
-    Extracts features from the sequential/market data before passing to MLPs.
-    """
-    def __init__(self, observation_space, features_dim: int = 128):
-        super(StockCNNFeaturesExtractor, self).__init__(observation_space, features_dim)
-        
-        n_input_channels = 1
-        
-        self.cnn = nn.Sequential(
-            nn.Conv1d(n_input_channels, 32, kernel_size=3, padding=1),
-            nn.ReLU(),
-            nn.Conv1d(32, 64, kernel_size=3, padding=1),
-            nn.ReLU(),
-            nn.Flatten(),
-        )
-        
-        # Compute shape dynamically
-        with th.no_grad():
-            sample = th.as_tensor(observation_space.sample()[None, None, ...]).float()
-            n_flatten = self.cnn(sample).shape[1]
-            
-        self.linear = nn.Sequential(
-            nn.Linear(n_flatten, features_dim),
-            nn.ReLU()
-        )
 
-    def forward(self, observations: th.Tensor) -> th.Tensor:
-        # Add a channel dimension: (batch_size, seq_len) -> (batch_size, 1, seq_len)
-        obs = observations.unsqueeze(1)
-        return self.linear(self.cnn(obs))
-
-# ============================================================
-# 2. Data Fetching and Preparation
-# ============================================================
-def load_and_prepare_data(ticker="AAPL"):
-    print(f"Downloading historical data for {ticker}...")
-    df = yf.download(ticker, start="2020-01-01", end="2024-12-31")
-    
-    # Flatten MultiIndex columns if single ticker is downloaded
-    if isinstance(df.columns, pd.MultiIndex):
-        df.columns = df.columns.get_level_values(0)
-    
-    # Calculate indicators using pandas-ta
-    print("Calculating technical indicators...")
-    # These will add new columns to df
-    df.ta.macd(append=True)
-    df.ta.rsi(append=True)
-    df.ta.bbands(append=True)
-    df.ta.obv(append=True)
-    
-    # Drop rows with NaN values resulting from indicator lookback periods
-    df.dropna(inplace=True)
-    
-    # Walk-forward Evaluation Split: Train 2020-2023, Test 2024
-    df_train = df.loc["2020-01-01":"2023-12-31"].copy()
-    df_test = df.loc["2024-01-01":"2024-12-31"].copy()
-    
-    # Ensure all column names are string
-    df_train.columns = df_train.columns.astype(str)
-    df_test.columns = df_test.columns.astype(str)
-    
-    print(f"Data ready. Train points: {len(df_train)}. Test points: {len(df_test)}")
-    return df_train, df_test
-
-# ============================================================
-# 3. Main Training Pipeline
-# ============================================================
-def main():
-    print("=" * 60)
-    print("  Stock Trading PPO Agent - Training & Eval")
-    print("=" * 60)
-    
-    # 1. Get Data
-    df_train, df_test = load_and_prepare_data("AAPL")
-    
-    # 2. Setup Train Environment
-    def make_train_env():
-        return StockTradingEnv(df=df_train)
-    
-    env = DummyVecEnv([make_train_env])
-    
-    # CRITICAL: Normalize state & rewards!
-    env = VecNormalize(env, norm_obs=True, norm_reward=True, clip_obs=10.0)
-    
-    # 3. Setup Architecture
-    # Using the 1D-Conv -> 2 FC layers pattern
-    policy_kwargs = dict(
-        features_extractor_class=StockCNNFeaturesExtractor,
-        features_extractor_kwargs=dict(features_dim=128),
-        net_arch=dict(pi=[128, 64], vf=[128, 64])
-    )
-    
-    model = PPO("MlpPolicy", env, verbose=1,
-                learning_rate=3e-4, 
-                n_steps=2048,
-                batch_size=64, 
-                n_epochs=10,
-                policy_kwargs=policy_kwargs)
-                
-    # 4. Train Model
-    print("Training model...")
-    # total_timesteps=100_000 is good for hackathon demo
-    model.learn(total_timesteps=100_000)
-    
-    # Save Model
-    os.makedirs("saved_models", exist_ok=True)
-    model.save("saved_models/ppo_trading_agent")
-    env.save("saved_models/vec_normalize.pkl")
-    print("\nModel saved to 'saved_models/ppo_trading_agent.zip'")
-    
-    # 5. Walk-forward Evaluation (2024)
-    print("\n" + "=" * 60)
-    print("  Walk-forward Evaluation Set (2024 Data)")
-    print("=" * 60)
-    
-    def make_test_env():
-        return StockTradingEnv(df=df_test)
-        
-    test_env = DummyVecEnv([make_test_env])
-    
-    # Load env scaling stats, but turn OFF updating them during test phase
-    test_env = VecNormalize.load("saved_models/vec_normalize.pkl", test_env)
-    test_env.training = False
-    test_env.norm_reward = False
-    
-    obs = test_env.reset()
+def run_episode(agent: DQNAgent, env: TradingEpisodeEnv, *, evaluate: bool = False, start_index: int | None = None):
+    state = env.reset(start_index=start_index)
     done = False
-    
+    total_reward = 0.0
+    last_loss = None
+
     while not done:
-        action, _states = model.predict(obs, deterministic=True)
-        obs, reward, done, info_list = test_env.step(action)
-        
-        info = info_list[0]
-        if done:
-            print(f"Evaluation complete. Final Test Portfolio Value: ${info['portfolio_value']:,.2f}")
-            break
+        action = agent.select_action(state, evaluate=evaluate)
+        next_state, reward, done, info = env.step(action)
+        total_reward += reward
+
+        if not evaluate:
+            agent.store_transition(state, action, reward, next_state, done)
+            loss = agent.learn()
+            if loss is not None:
+                last_loss = loss
+
+        state = next_state
+
+    metrics = env.metrics()
+    return {
+        "total_reward": float(total_reward),
+        "final_portfolio_value": metrics.final_portfolio_value,
+        "total_trades": metrics.total_trades,
+        "max_drawdown": metrics.max_drawdown,
+        "win_rate": metrics.win_rate,
+        "decision_accuracy": metrics.decision_accuracy,
+        "profitable_trade_rate": metrics.profitable_trade_rate,
+        "loss": last_loss,
+    }
+
+
+def make_episode_starts(frame_length: int, episode_length: int, episodes: int) -> list[int]:
+    max_start = max(0, frame_length - episode_length - 1)
+    if max_start == 0:
+        return [0] * episodes
+    rng = np.random.default_rng(42)
+    return [int(rng.integers(0, max_start + 1)) for _ in range(episodes)]
+
+
+def main() -> None:
+    print("=" * 72)
+    print("  Stock Trading DQN - Retraining with normalized multi-factor features")
+    print("=" * 72)
+
+    history = load_market_history("AAPL")
+    split_index = max(60, int(len(history) * 0.8))
+    train_frame = history.iloc[:split_index].copy()
+    test_frame = history.iloc[split_index:].copy()
+
+    train_env = TradingEpisodeEnv(train_frame, episode_length=min(252, len(train_frame)))
+    test_env = TradingEpisodeEnv(test_frame, episode_length=min(252, len(test_frame)))
+
+    agent = DQNAgent(state_size=STATE_SIZE, action_size=ENV_CONFIG["action_size"])
+
+    episodes = int(DQN_CONFIG["num_episodes"])
+    target_update_freq = int(DQN_CONFIG["target_update_freq"])
+    best_validation_value = -float("inf")
+    episode_starts = make_episode_starts(len(train_frame), train_env.episode_length, episodes)
+
+    history_rows: list[dict[str, float]] = []
+
+    print(f"Train rows: {len(train_frame)} | Test rows: {len(test_frame)} | State size: {STATE_SIZE}")
+
+    for episode in range(1, episodes + 1):
+        start_index = episode_starts[episode - 1]
+        metrics = run_episode(agent, train_env, evaluate=False, start_index=start_index)
+        agent.decay_epsilon()
+
+        validation = None
+        if episode % max(5, target_update_freq) == 0 or episode == episodes:
+            validation = run_episode(agent, test_env, evaluate=True, start_index=0)
+            if validation["final_portfolio_value"] > best_validation_value:
+                best_validation_value = validation["final_portfolio_value"]
+                agent.save()
+
+        if episode % max(1, DQN_CONFIG.get("log_interval", 10)) == 0 or episode == 1:
+            validation_value = validation["final_portfolio_value"] if validation else float("nan")
+            print(
+                f"Episode {episode:>3d} | "
+                f"Reward {metrics['total_reward']:>9.4f} | "
+                f"Portfolio ${metrics['final_portfolio_value']:>10.2f} | "
+                f"Trades {metrics['total_trades']:>3d} | "
+                f"Win {metrics['win_rate']:.2%} | "
+                f"Acc {metrics['decision_accuracy']:.2%} | "
+                f"TradeWin {metrics['profitable_trade_rate']:.2%} | "
+                f"Val ${validation_value:>10.2f} | "
+                f"Epsilon {agent.epsilon:.3f}"
+            )
+
+        history_rows.append(
+            {
+                "episode": episode,
+                "reward": metrics["total_reward"],
+                "portfolio_value": metrics["final_portfolio_value"],
+                "trades": metrics["total_trades"],
+                "win_rate": metrics["win_rate"],
+                "decision_accuracy": metrics["decision_accuracy"],
+                "profitable_trade_rate": metrics["profitable_trade_rate"],
+                "epsilon": agent.epsilon,
+                "validation_value": validation["final_portfolio_value"] if validation else float("nan"),
+            }
+        )
+
+        if episode % target_update_freq == 0:
+            agent.update_target_network()
+
+    save_path = agent.save()
+    print(f"\nSaved model to: {save_path}")
+
+    os.makedirs(ROOT / "plots", exist_ok=True)
+    summary_path = ROOT / "plots" / "training_summary.json"
+    with summary_path.open("w", encoding="utf-8") as handle:
+        json.dump(history_rows, handle, indent=2)
+    print(f"Saved training summary to: {summary_path}")
+
+    final_eval = run_episode(agent, test_env, evaluate=True, start_index=0)
+    print("\n" + "=" * 72)
+    print("  Final validation")
+    print("=" * 72)
+    print(f"Final portfolio value: ${final_eval['final_portfolio_value']:,.2f}")
+    print(f"Total reward         : {final_eval['total_reward']:.4f}")
+    print(f"Total trades         : {final_eval['total_trades']}")
+    print(f"Max drawdown         : {final_eval['max_drawdown']:.2%}")
+    print(f"Win rate             : {final_eval['win_rate']:.2%}")
+    print(f"Decision accuracy    : {final_eval['decision_accuracy']:.2%}")
+    print(f"Profitable trade rate: {final_eval['profitable_trade_rate']:.2%}")
+
 
 if __name__ == "__main__":
     main()

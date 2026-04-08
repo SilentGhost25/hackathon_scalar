@@ -4,6 +4,12 @@
 
 A production-quality reinforcement learning environment built with **PyTorch** and **OpenEnv** that simulates a realistic stock market trading system. A DQN agent learns to **buy, hold, and sell** stocks to maximize profit while minimizing risk.
 
+This model also powers the main app's explainable signal engine and scenario lab, so the hackathon demo can show both live recommendations and what-if trade outcomes.
+
+The latest retrain uses a normalized 12-feature state, Double DQN targets, and a cleaned-up training / evaluation pipeline.
+
+Evaluation now also reports decision accuracy, profitable trade rate, a random-policy baseline, and buy-and-hold comparison.
+
 ---
 
 ## 🏗️ Project Structure
@@ -47,7 +53,7 @@ python train.py
 ```
 
 This will:
-- Train a DQN agent for 500 episodes
+- Train a DQN agent for 300 episodes
 - Log metrics every 10 episodes
 - Save the best model to `saved_models/dqn_trading.pth`
 - Generate training plots in `plots/training_summary.png`
@@ -63,6 +69,8 @@ This will:
 - Run on fresh (unseen) synthetic data
 - Print performance metrics
 - Compare against a buy-and-hold baseline
+- Compare against a random-policy baseline
+- Report decision accuracy and profitable trade rate
 - Generate evaluation plots in `plots/evaluation_detail.png`
 
 ---

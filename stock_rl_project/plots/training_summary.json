@@ -1,0 +1,2702 @@
+[
+  {
+    "episode": 1,
+    "reward": -4.046093459892127,
+    "portfolio_value": 11590.531899726866,
+    "trades": 174,
+    "win_rate": 0.19123505976095617,
+    "epsilon": 0.997,
+    "validation_value": NaN
+  },
+  {
+    "episode": 2,
+    "reward": -1.0027013038520733,
+    "portfolio_value": 11573.363860694892,
+    "trades": 162,
+    "win_rate": 0.4103585657370518,
+    "epsilon": 0.994009,
+    "validation_value": NaN
+  },
+  {
+    "episode": 3,
+    "reward": -2.1203804145812906,
+    "portfolio_value": 10034.980054992679,
+    "trades": 171,
+    "win_rate": 0.2151394422310757,
+    "epsilon": 0.991026973,
+    "validation_value": NaN
+  },
+  {
+    "episode": 4,
+    "reward": -2.162003991555482,
+    "portfolio_value": 9507.508808624265,
+    "trades": 155,
+    "win_rate": 0.24701195219123506,
+    "epsilon": 0.988053892081,
+    "validation_value": NaN
+  },
+  {
+    "episode": 5,
+    "reward": -1.7078626664743082,
+    "portfolio_value": 9530.014482009885,
+    "trades": 163,
+    "win_rate": 0.23107569721115537,
+    "epsilon": 0.985089730404757,
+    "validation_value": 10000.0
+  },
+  {
+    "episode": 6,
+    "reward": -0.6849583297650199,
+    "portfolio_value": 11581.778647232044,
+    "trades": 169,
+    "win_rate": 0.3784860557768924,
+    "epsilon": 0.9821344612135428,
+    "validation_value": NaN
+  },
+  {
+    "episode": 7,
+    "reward": -2.3885411496934483,
+    "portfolio_value": 12686.820484184267,
+    "trades": 173,
+    "win_rate": 0.23107569721115537,
+    "epsilon": 0.9791880578299021,
+    "validation_value": NaN
+  },
+  {
+    "episode": 8,
+    "reward": -3.617519930215144,
+    "portfolio_value": 10173.032693977362,
+    "trades": 157,
+    "win_rate": 0.12749003984063745,
+    "epsilon": 0.9762504936564125,
+    "validation_value": NaN
+  },
+  {
+    "episode": 9,
+    "reward": -0.9211008549465975,
+    "portfolio_value": 11553.159544776914,
+    "trades": 169,
+    "win_rate": 0.3386454183266932,
+    "epsilon": 0.9733217421754432,
+    "validation_value": NaN
+  },
+  {
+    "episode": 10,
+    "reward": -1.8898535991699237,
+    "portfolio_value": 11096.499908859254,
+    "trades": 174,
+    "win_rate": 0.26693227091633465,
+    "epsilon": 0.9704017769489168,
+    "validation_value": 14255.125935028074
+  },
+  {
+    "episode": 11,
+    "reward": -3.1620025891458092,
+    "portfolio_value": 10033.92412145996,
+    "trades": 167,
+    "win_rate": 0.17131474103585656,
+    "epsilon": 0.9674905716180701,
+    "validation_value": NaN
+  },
+  {
+    "episode": 12,
+    "reward": -0.8520088107757541,
+    "portfolio_value": 11155.773465682982,
+    "trades": 176,
+    "win_rate": 0.4063745019920319,
+    "epsilon": 0.9645880999032158,
+    "validation_value": NaN
+  },
+  {
+    "episode": 13,
+    "reward": -3.5603647435676646,
+    "portfolio_value": 10439.037886413571,
+    "trades": 172,
+    "win_rate": 0.1752988047808765,
+    "epsilon": 0.9616943356035061,
+    "validation_value": NaN
+  },
+  {
+    "episode": 14,
+    "reward": -2.331990189958949,
+    "portfolio_value": 11048.450729896551,
+    "trades": 169,
+    "win_rate": 0.26294820717131473,
+    "epsilon": 0.9588092525966956,
+    "validation_value": NaN
+  },
+  {
+    "episode": 15,
+    "reward": -2.3603849924990756,
+    "portfolio_value": 9891.291672866822,
+    "trades": 176,
+    "win_rate": 0.1752988047808765,
+    "epsilon": 0.9559328248389055,
+    "validation_value": 14187.119561248779
+  },
+  {
+    "episode": 16,
+    "reward": -2.6637582037126086,
+    "portfolio_value": 11200.329616027831,
+    "trades": 166,
+    "win_rate": 0.20318725099601595,
+    "epsilon": 0.9530650263643888,
+    "validation_value": NaN
+  },
+  {
+    "episode": 17,
+    "reward": -2.151226807253416,
+    "portfolio_value": 9919.064076492312,
+    "trades": 171,
+    "win_rate": 0.19123505976095617,
+    "epsilon": 0.9502058312852957,
+    "validation_value": NaN
+  },
+  {
+    "episode": 18,
+    "reward": -2.272272270173044,
+    "portfolio_value": 11482.505326332093,
+    "trades": 171,
+    "win_rate": 0.2788844621513944,
+    "epsilon": 0.9473552137914398,
+    "validation_value": NaN
+  },
+  {
+    "episode": 19,
+    "reward": -1.0874992899830613,
+    "portfolio_value": 10276.706269149783,
+    "trades": 170,
+    "win_rate": 0.32270916334661354,
+    "epsilon": 0.9445131481500655,
+    "validation_value": NaN
+  },
+  {
+    "episode": 20,
+    "reward": -1.6280894614956645,
+    "portfolio_value": 10295.344749450685,
+    "trades": 177,
+    "win_rate": 0.3745019920318725,
+    "epsilon": 0.9416796087056153,
+    "validation_value": 14187.119561248779
+  },
+  {
+    "episode": 21,
+    "reward": -2.6288317001495396,
+    "portfolio_value": 10764.68607144165,
+    "trades": 172,
+    "win_rate": 0.23904382470119523,
+    "epsilon": 0.9388545698794984,
+    "validation_value": NaN
+  },
+  {
+    "episode": 22,
+    "reward": -0.49295850554015513,
+    "portfolio_value": 11719.225690086369,
+    "trades": 179,
+    "win_rate": 0.3705179282868526,
+    "epsilon": 0.93603800616986,
+    "validation_value": NaN
+  },
+  {
+    "episode": 23,
+    "reward": -1.9525320433659443,
+    "portfolio_value": 10401.357479598997,
+    "trades": 173,
+    "win_rate": 0.18326693227091634,
+    "epsilon": 0.9332298921513504,
+    "validation_value": NaN
+  },
+  {
+    "episode": 24,
+    "reward": -1.0900194457899486,
+    "portfolio_value": 11240.320596702573,
+    "trades": 189,
+    "win_rate": 0.33067729083665337,
+    "epsilon": 0.9304302024748964,
+    "validation_value": NaN
+  },
+  {
+    "episode": 25,
+    "reward": -1.867380791488024,
+    "portfolio_value": 11099.929373443609,
+    "trades": 157,
+    "win_rate": 0.2151394422310757,
+    "epsilon": 0.9276389118674717,
+    "validation_value": 14187.119561248779
+  },
+  {
+    "episode": 26,
+    "reward": -3.858264306711878,
+    "portfolio_value": 8734.529627143864,
+    "trades": 187,
+    "win_rate": 0.11952191235059761,
+    "epsilon": 0.9248559951318693,
+    "validation_value": NaN
+  },
+  {
+    "episode": 27,
+    "reward": -1.4203053316830492,
+    "portfolio_value": 10332.236312057496,
+    "trades": 162,
+    "win_rate": 0.3386454183266932,
+    "epsilon": 0.9220814271464737,
+    "validation_value": NaN
+  },
+  {
+    "episode": 28,
+    "reward": -1.3605997642263856,
+    "portfolio_value": 10695.560345932005,
+    "trades": 173,
+    "win_rate": 0.3107569721115538,
+    "epsilon": 0.9193151828650342,
+    "validation_value": NaN
+  },
+  {
+    "episode": 29,
+    "reward": -2.4923094048605416,
+    "portfolio_value": 10040.844374771117,
+    "trades": 156,
+    "win_rate": 0.22310756972111553,
+    "epsilon": 0.9165572373164391,
+    "validation_value": NaN
+  },
+  {
+    "episode": 30,
+    "reward": -2.2151805823803676,
+    "portfolio_value": 9819.578183715821,
+    "trades": 164,
+    "win_rate": 0.250996015936255,
+    "epsilon": 0.9138075656044898,
+    "validation_value": 14187.119561248779
+  },
+  {
+    "episode": 31,
+    "reward": -1.5108014633526547,
+    "portfolio_value": 10403.638534255986,
+    "trades": 162,
+    "win_rate": 0.29880478087649404,
+    "epsilon": 0.9110661429076764,
+    "validation_value": NaN
+  },
+  {
+    "episode": 32,
+    "reward": -1.4499377404280094,
+    "portfolio_value": 10811.419073120118,
+    "trades": 166,
+    "win_rate": 0.26693227091633465,
+    "epsilon": 0.9083329444789534,
+    "validation_value": NaN
+  },
+  {
+    "episode": 33,
+    "reward": -1.5411946245924326,
+    "portfolio_value": 12616.416461311346,
+    "trades": 164,
+    "win_rate": 0.3147410358565737,
+    "epsilon": 0.9056079456455165,
+    "validation_value": NaN
+  },
+  {
+    "episode": 34,
+    "reward": -3.8275574183572387,
+    "portfolio_value": 9417.4147358551,
+    "trades": 186,
+    "win_rate": 0.21115537848605578,
+    "epsilon": 0.90289112180858,
+    "validation_value": NaN
+  },
+  {
+    "episode": 35,
+    "reward": -1.0134009351309212,
+    "portfolio_value": 10908.968529769898,
+    "trades": 170,
+    "win_rate": 0.350597609561753,
+    "epsilon": 0.9001824484431542,
+    "validation_value": 14187.119561248779
+  },
+  {
+    "episode": 36,
+    "reward": -2.7231195045719936,
+    "portfolio_value": 12368.802335144042,
+    "trades": 170,
+    "win_rate": 0.27091633466135456,
+    "epsilon": 0.8974819010978248,
+    "validation_value": NaN
+  },
+  {
+    "episode": 37,
+    "reward": -1.4161366686735575,
+    "portfolio_value": 10611.837941596983,
+    "trades": 163,
+    "win_rate": 0.2908366533864542,
+    "epsilon": 0.8947894553945313,
+    "validation_value": NaN
+  },
+  {
+    "episode": 38,
+    "reward": -1.2259747248718242,
+    "portfolio_value": 10966.957818519593,
+    "trades": 171,
+    "win_rate": 0.3665338645418327,
+    "epsilon": 0.8921050870283477,
+    "validation_value": NaN
+  },
+  {
+    "episode": 39,
+    "reward": -2.043517969202436,
+    "portfolio_value": 10813.424339675897,
+    "trades": 166,
+    "win_rate": 0.18725099601593626,
+    "epsilon": 0.8894287717672626,
+    "validation_value": NaN
+  },
+  {
+    "episode": 40,
+    "reward": -6.602274501062768,
+    "portfolio_value": 8531.891645423892,
+    "trades": 181,
+    "win_rate": 0.09561752988047809,
+    "epsilon": 0.8867604854519608,
+    "validation_value": 10000.0
+  },
+  {
+    "episode": 41,
+    "reward": -1.7402347834760985,
+    "portfolio_value": 11426.282567733768,
+    "trades": 171,
+    "win_rate": 0.2788844621513944,
+    "epsilon": 0.884100203995605,
+    "validation_value": NaN
+  },
+  {
+    "episode": 42,
+    "reward": -3.4305180941274975,
+    "portfolio_value": 11005.21438375855,
+    "trades": 173,
+    "win_rate": 0.18326693227091634,
+    "epsilon": 0.8814479033836181,
+    "validation_value": NaN
+  },
+  {
+    "episode": 43,
+    "reward": -3.417766633163296,
+    "portfolio_value": 9880.658446327208,
+    "trades": 171,
+    "win_rate": 0.17928286852589642,
+    "epsilon": 0.8788035596734672,
+    "validation_value": NaN
+  },
+  {
+    "episode": 44,
+    "reward": -0.8336553932612585,
+    "portfolio_value": 11518.706256622321,
+    "trades": 162,
+    "win_rate": 0.3346613545816733,
+    "epsilon": 0.8761671489944468,
+    "validation_value": NaN
+  },
+  {
+    "episode": 45,
+    "reward": -4.469530918485267,
+    "portfolio_value": 12272.494896255495,
+    "trades": 163,
+    "win_rate": 0.20318725099601595,
+    "epsilon": 0.8735386475474635,
+    "validation_value": 14080.709671844483
+  },
+  {
+    "episode": 46,
+    "reward": -0.5227150804461642,
+    "portfolio_value": 11687.544977134708,
+    "trades": 171,
+    "win_rate": 0.38247011952191234,
+    "epsilon": 0.8709180316048211,
+    "validation_value": NaN
+  },
+  {
+    "episode": 47,
+    "reward": -2.666362946523429,
+    "portfolio_value": 9601.307174392707,
+    "trades": 155,
+    "win_rate": 0.26693227091633465,
+    "epsilon": 0.8683052775100066,
+    "validation_value": NaN
+  },
+  {
+    "episode": 48,
+    "reward": -1.0007603947039811,
+    "portfolio_value": 11122.426562515253,
+    "trades": 187,
+    "win_rate": 0.3705179282868526,
+    "epsilon": 0.8657003616774767,
+    "validation_value": NaN
+  },
+  {
+    "episode": 49,
+    "reward": -3.693015088409124,
+    "portfolio_value": 9335.233853576654,
+    "trades": 163,
+    "win_rate": 0.09163346613545817,
+    "epsilon": 0.8631032605924442,
+    "validation_value": NaN
+  },
+  {
+    "episode": 50,
+    "reward": -3.351406310079191,
+    "portfolio_value": 10404.235473991392,
+    "trades": 183,
+    "win_rate": 0.16733067729083664,
+    "epsilon": 0.860513950810667,
+    "validation_value": 14080.099637527466
+  },
+  {
+    "episode": 51,
+    "reward": -3.7282158676760964,
+    "portfolio_value": 10692.194177276613,
+    "trades": 166,
+    "win_rate": 0.17928286852589642,
+    "epsilon": 0.857932408958235,
+    "validation_value": NaN
+  },
+  {
+    "episode": 52,
+    "reward": -1.2108724840353438,
+    "portfolio_value": 11456.40360957336,
+    "trades": 181,
+    "win_rate": 0.3147410358565737,
+    "epsilon": 0.8553586117313603,
+    "validation_value": NaN
+  },
+  {
+    "episode": 53,
+    "reward": -0.8355448502685526,
+    "portfolio_value": 11079.73368555451,
+    "trades": 160,
+    "win_rate": 0.3745019920318725,
+    "epsilon": 0.8527925358961662,
+    "validation_value": NaN
+  },
+  {
+    "episode": 54,
+    "reward": -2.8116242545803773,
+    "portfolio_value": 10282.417105270391,
+    "trades": 164,
+    "win_rate": 0.24302788844621515,
+    "epsilon": 0.8502341582884777,
+    "validation_value": NaN
+  },
+  {
+    "episode": 55,
+    "reward": -3.1327804724136286,
+    "portfolio_value": 9531.133917800906,
+    "trades": 177,
+    "win_rate": 0.17928286852589642,
+    "epsilon": 0.8476834558136123,
+    "validation_value": 14097.666522644042
+  },
+  {
+    "episode": 56,
+    "reward": -1.4293719979280077,
+    "portfolio_value": 12618.908678146361,
+    "trades": 176,
+    "win_rate": 0.3346613545816733,
+    "epsilon": 0.8451404054461714,
+    "validation_value": NaN
+  },
+  {
+    "episode": 57,
+    "reward": -2.6763494199957183,
+    "portfolio_value": 9993.621241516119,
+    "trades": 163,
+    "win_rate": 0.250996015936255,
+    "epsilon": 0.8426049842298329,
+    "validation_value": NaN
+  },
+  {
+    "episode": 58,
+    "reward": -2.1836120642166157,
+    "portfolio_value": 10295.299597633359,
+    "trades": 180,
+    "win_rate": 0.1952191235059761,
+    "epsilon": 0.8400771692771434,
+    "validation_value": NaN
+  },
+  {
+    "episode": 59,
+    "reward": -2.934486182292167,
+    "portfolio_value": 11160.902296806338,
+    "trades": 154,
+    "win_rate": 0.1752988047808765,
+    "epsilon": 0.837556937769312,
+    "validation_value": NaN
+  },
+  {
+    "episode": 60,
+    "reward": -3.639835737107542,
+    "portfolio_value": 9696.2807494812,
+    "trades": 190,
+    "win_rate": 0.09163346613545817,
+    "epsilon": 0.835044266956004,
+    "validation_value": 10360.668189178466
+  },
+  {
+    "episode": 61,
+    "reward": -0.60433418526581,
+    "portfolio_value": 11762.587380386352,
+    "trades": 183,
+    "win_rate": 0.36254980079681276,
+    "epsilon": 0.8325391341551359,
+    "validation_value": NaN
+  },
+  {
+    "episode": 62,
+    "reward": -3.5876935885728485,
+    "portfolio_value": 10748.199571571353,
+    "trades": 180,
+    "win_rate": 0.1553784860557769,
+    "epsilon": 0.8300415167526705,
+    "validation_value": NaN
+  },
+  {
+    "episode": 63,
+    "reward": -1.6990240316984546,
+    "portfolio_value": 10290.375201942443,
+    "trades": 169,
+    "win_rate": 0.22310756972111553,
+    "epsilon": 0.8275513922024125,
+    "validation_value": NaN
+  },
+  {
+    "episode": 64,
+    "reward": -0.8168625503099074,
+    "portfolio_value": 12454.157562210083,
+    "trades": 173,
+    "win_rate": 0.3944223107569721,
+    "epsilon": 0.8250687380258053,
+    "validation_value": NaN
+  },
+  {
+    "episode": 65,
+    "reward": -1.3631618092721582,
+    "portfolio_value": 11285.873258316038,
+    "trades": 174,
+    "win_rate": 0.3187250996015936,
+    "epsilon": 0.8225935318117279,
+    "validation_value": 12233.16147186279
+  },
+  {
+    "episode": 66,
+    "reward": -1.1664996597239699,
+    "portfolio_value": 11207.594683929436,
+    "trades": 170,
+    "win_rate": 0.33067729083665337,
+    "epsilon": 0.8201257512162927,
+    "validation_value": NaN
+  },
+  {
+    "episode": 67,
+    "reward": -1.0904555504980495,
+    "portfolio_value": 11007.200921272275,
+    "trades": 178,
+    "win_rate": 0.3426294820717131,
+    "epsilon": 0.8176653739626438,
+    "validation_value": NaN
+  },
+  {
+    "episode": 68,
+    "reward": -1.3523130302874786,
+    "portfolio_value": 10813.707762176506,
+    "trades": 180,
+    "win_rate": 0.28286852589641437,
+    "epsilon": 0.8152123778407558,
+    "validation_value": NaN
+  },
+  {
+    "episode": 69,
+    "reward": -3.568008616054989,
+    "portfolio_value": 11075.22381488037,
+    "trades": 176,
+    "win_rate": 0.21912350597609562,
+    "epsilon": 0.8127667407072335,
+    "validation_value": NaN
+  },
+  {
+    "episode": 70,
+    "reward": -3.2028776445281975,
+    "portfolio_value": 9781.399849273688,
+    "trades": 162,
+    "win_rate": 0.17928286852589642,
+    "epsilon": 0.8103284404851119,
+    "validation_value": 13424.921304916383
+  },
+  {
+    "episode": 71,
+    "reward": -2.087440793941647,
+    "portfolio_value": 11660.280947906494,
+    "trades": 173,
+    "win_rate": 0.2749003984063745,
+    "epsilon": 0.8078974551636565,
+    "validation_value": NaN
+  },
+  {
+    "episode": 72,
+    "reward": -0.9791929477790796,
+    "portfolio_value": 10744.646205924993,
+    "trades": 179,
+    "win_rate": 0.35856573705179284,
+    "epsilon": 0.8054737627981655,
+    "validation_value": NaN
+  },
+  {
+    "episode": 73,
+    "reward": -2.336555160076294,
+    "portfolio_value": 10613.124987045285,
+    "trades": 183,
+    "win_rate": 0.2350597609561753,
+    "epsilon": 0.803057341509771,
+    "validation_value": NaN
+  },
+  {
+    "episode": 74,
+    "reward": -4.066349668828113,
+    "portfolio_value": 10494.771889884949,
+    "trades": 170,
+    "win_rate": 0.13147410358565736,
+    "epsilon": 0.8006481694852418,
+    "validation_value": NaN
+  },
+  {
+    "episode": 75,
+    "reward": -2.5356207200244127,
+    "portfolio_value": 9849.286689712528,
+    "trades": 171,
+    "win_rate": 0.18725099601593626,
+    "epsilon": 0.798246224976786,
+    "validation_value": 11793.244237579347
+  },
+  {
+    "episode": 76,
+    "reward": -1.9253793467196687,
+    "portfolio_value": 10967.149673492431,
+    "trades": 180,
+    "win_rate": 0.20717131474103587,
+    "epsilon": 0.7958514863018556,
+    "validation_value": NaN
+  },
+  {
+    "episode": 77,
+    "reward": -0.7369162890879828,
+    "portfolio_value": 11172.239323463442,
+    "trades": 174,
+    "win_rate": 0.3545816733067729,
+    "epsilon": 0.79346393184295,
+    "validation_value": NaN
+  },
+  {
+    "episode": 78,
+    "reward": -1.707265728815615,
+    "portfolio_value": 11867.132871505739,
+    "trades": 170,
+    "win_rate": 0.24701195219123506,
+    "epsilon": 0.7910835400474212,
+    "validation_value": NaN
+  },
+  {
+    "episode": 79,
+    "reward": -3.5617146109976106,
+    "portfolio_value": 9801.87069740296,
+    "trades": 182,
+    "win_rate": 0.1593625498007968,
+    "epsilon": 0.7887102894272789,
+    "validation_value": NaN
+  },
+  {
+    "episode": 80,
+    "reward": -2.3464782154373247,
+    "portfolio_value": 11458.918163192742,
+    "trades": 168,
+    "win_rate": 0.2589641434262948,
+    "epsilon": 0.7863441585589971,
+    "validation_value": 13225.18524665833
+  },
+  {
+    "episode": 81,
+    "reward": -0.36342189647796824,
+    "portfolio_value": 12372.397891685483,
+    "trades": 172,
+    "win_rate": 0.4701195219123506,
+    "epsilon": 0.78398512608332,
+    "validation_value": NaN
+  },
+  {
+    "episode": 82,
+    "reward": -1.6914051658267202,
+    "portfolio_value": 10511.260986145024,
+    "trades": 175,
+    "win_rate": 0.30677290836653387,
+    "epsilon": 0.7816331707050701,
+    "validation_value": NaN
+  },
+  {
+    "episode": 83,
+    "reward": -1.6405598834602353,
+    "portfolio_value": 12707.155367019655,
+    "trades": 173,
+    "win_rate": 0.3545816733067729,
+    "epsilon": 0.7792882711929549,
+    "validation_value": NaN
+  },
+  {
+    "episode": 84,
+    "reward": -1.9480993278503393,
+    "portfolio_value": 10122.94935219574,
+    "trades": 182,
+    "win_rate": 0.23107569721115537,
+    "epsilon": 0.776950406379376,
+    "validation_value": NaN
+  },
+  {
+    "episode": 85,
+    "reward": -2.787019001066283,
+    "portfolio_value": 9609.423241470338,
+    "trades": 172,
+    "win_rate": 0.14342629482071714,
+    "epsilon": 0.7746195551602378,
+    "validation_value": 12224.29546490478
+  },
+  {
+    "episode": 86,
+    "reward": -2.219228910957037,
+    "portfolio_value": 11053.04978083038,
+    "trades": 178,
+    "win_rate": 0.250996015936255,
+    "epsilon": 0.7722956964947572,
+    "validation_value": NaN
+  },
+  {
+    "episode": 87,
+    "reward": -4.0858427376504425,
+    "portfolio_value": 11256.933024917606,
+    "trades": 188,
+    "win_rate": 0.18326693227091634,
+    "epsilon": 0.7699788094052729,
+    "validation_value": NaN
+  },
+  {
+    "episode": 88,
+    "reward": -0.7499780332867435,
+    "portfolio_value": 11684.410543426513,
+    "trades": 179,
+    "win_rate": 0.3665338645418327,
+    "epsilon": 0.767668872977057,
+    "validation_value": NaN
+  },
+  {
+    "episode": 89,
+    "reward": -1.8571880785543868,
+    "portfolio_value": 11964.047545158384,
+    "trades": 170,
+    "win_rate": 0.3107569721115538,
+    "epsilon": 0.7653658663581259,
+    "validation_value": NaN
+  },
+  {
+    "episode": 90,
+    "reward": -1.4797107039131203,
+    "portfolio_value": 11059.491710128781,
+    "trades": 195,
+    "win_rate": 0.2948207171314741,
+    "epsilon": 0.7630697687590515,
+    "validation_value": 13568.761502456666
+  },
+  {
+    "episode": 91,
+    "reward": -3.2354455825900263,
+    "portfolio_value": 9440.147436187744,
+    "trades": 188,
+    "win_rate": 0.2589641434262948,
+    "epsilon": 0.7607805594527743,
+    "validation_value": NaN
+  },
+  {
+    "episode": 92,
+    "reward": -1.250368828168026,
+    "portfolio_value": 11125.095006500245,
+    "trades": 163,
+    "win_rate": 0.32270916334661354,
+    "epsilon": 0.7584982177744161,
+    "validation_value": NaN
+  },
+  {
+    "episode": 93,
+    "reward": -1.068554304360352,
+    "portfolio_value": 11073.27917752075,
+    "trades": 183,
+    "win_rate": 0.3904382470119522,
+    "epsilon": 0.7562227231210928,
+    "validation_value": NaN
+  },
+  {
+    "episode": 94,
+    "reward": -1.0094695323880023,
+    "portfolio_value": 11452.66485318756,
+    "trades": 178,
+    "win_rate": 0.38247011952191234,
+    "epsilon": 0.7539540549517295,
+    "validation_value": NaN
+  },
+  {
+    "episode": 95,
+    "reward": -0.8856276282807921,
+    "portfolio_value": 11891.158704940792,
+    "trades": 183,
+    "win_rate": 0.36254980079681276,
+    "epsilon": 0.7516921927868743,
+    "validation_value": 13527.504244644164
+  },
+  {
+    "episode": 96,
+    "reward": -0.7659756528501909,
+    "portfolio_value": 12039.849204887387,
+    "trades": 170,
+    "win_rate": 0.3545816733067729,
+    "epsilon": 0.7494371162085136,
+    "validation_value": NaN
+  },
+  {
+    "episode": 97,
+    "reward": -1.5619366183814989,
+    "portfolio_value": 11791.265658203125,
+    "trades": 198,
+    "win_rate": 0.33067729083665337,
+    "epsilon": 0.747188804859888,
+    "validation_value": NaN
+  },
+  {
+    "episode": 98,
+    "reward": -2.892798884195258,
+    "portfolio_value": 10223.31321557617,
+    "trades": 178,
+    "win_rate": 0.2151394422310757,
+    "epsilon": 0.7449472384453084,
+    "validation_value": NaN
+  },
+  {
+    "episode": 99,
+    "reward": -1.956798537430107,
+    "portfolio_value": 10629.693632568366,
+    "trades": 178,
+    "win_rate": 0.23107569721115537,
+    "epsilon": 0.7427123967299725,
+    "validation_value": NaN
+  },
+  {
+    "episode": 100,
+    "reward": -2.7322083025958293,
+    "portfolio_value": 11274.842963249203,
+    "trades": 183,
+    "win_rate": 0.2749003984063745,
+    "epsilon": 0.7404842595397826,
+    "validation_value": 13573.741983337408
+  },
+  {
+    "episode": 101,
+    "reward": -1.0903233626405335,
+    "portfolio_value": 10870.016148750306,
+    "trades": 184,
+    "win_rate": 0.36254980079681276,
+    "epsilon": 0.7382628067611632,
+    "validation_value": NaN
+  },
+  {
+    "episode": 102,
+    "reward": -1.5091157260058548,
+    "portfolio_value": 11603.161422981266,
+    "trades": 185,
+    "win_rate": 0.3187250996015936,
+    "epsilon": 0.7360480183408797,
+    "validation_value": NaN
+  },
+  {
+    "episode": 103,
+    "reward": -1.1163224267301946,
+    "portfolio_value": 10949.48618572998,
+    "trades": 199,
+    "win_rate": 0.3944223107569721,
+    "epsilon": 0.7338398742858571,
+    "validation_value": NaN
+  },
+  {
+    "episode": 104,
+    "reward": -1.8402800254146583,
+    "portfolio_value": 14586.306134937286,
+    "trades": 180,
+    "win_rate": 0.38645418326693226,
+    "epsilon": 0.7316383546629995,
+    "validation_value": NaN
+  },
+  {
+    "episode": 105,
+    "reward": -0.3735212751144391,
+    "portfolio_value": 12771.316859680177,
+    "trades": 165,
+    "win_rate": 0.4541832669322709,
+    "epsilon": 0.7294434395990105,
+    "validation_value": 12462.426284591675
+  },
+  {
+    "episode": 106,
+    "reward": -0.8171396877848828,
+    "portfolio_value": 11298.066635765077,
+    "trades": 184,
+    "win_rate": 0.4103585657370518,
+    "epsilon": 0.7272551092802134,
+    "validation_value": NaN
+  },
+  {
+    "episode": 107,
+    "reward": -1.2848508910397285,
+    "portfolio_value": 12011.841382202152,
+    "trades": 189,
+    "win_rate": 0.36254980079681276,
+    "epsilon": 0.7250733439523728,
+    "validation_value": NaN
+  },
+  {
+    "episode": 108,
+    "reward": -3.3336741377725216,
+    "portfolio_value": 9781.986167892455,
+    "trades": 167,
+    "win_rate": 0.22310756972111553,
+    "epsilon": 0.7228981239205157,
+    "validation_value": NaN
+  },
+  {
+    "episode": 109,
+    "reward": -1.747188144674072,
+    "portfolio_value": 11272.216626907353,
+    "trades": 176,
+    "win_rate": 0.32669322709163345,
+    "epsilon": 0.7207294295487541,
+    "validation_value": NaN
+  },
+  {
+    "episode": 110,
+    "reward": -2.1404602717379713,
+    "portfolio_value": 11251.755990661622,
+    "trades": 185,
+    "win_rate": 0.2749003984063745,
+    "epsilon": 0.7185672412601078,
+    "validation_value": 13370.735689224246
+  },
+  {
+    "episode": 111,
+    "reward": -1.2451043963220167,
+    "portfolio_value": 11857.627640380866,
+    "trades": 173,
+    "win_rate": 0.3386454183266932,
+    "epsilon": 0.7164115395363275,
+    "validation_value": NaN
+  },
+  {
+    "episode": 112,
+    "reward": -1.412502688429877,
+    "portfolio_value": 11401.857374252317,
+    "trades": 168,
+    "win_rate": 0.3386454183266932,
+    "epsilon": 0.7142623049177186,
+    "validation_value": NaN
+  },
+  {
+    "episode": 113,
+    "reward": -2.3005718502886974,
+    "portfolio_value": 10135.128411834714,
+    "trades": 178,
+    "win_rate": 0.2749003984063745,
+    "epsilon": 0.7121195180029655,
+    "validation_value": NaN
+  },
+  {
+    "episode": 114,
+    "reward": -1.6334959165154983,
+    "portfolio_value": 10633.840613861086,
+    "trades": 175,
+    "win_rate": 0.30677290836653387,
+    "epsilon": 0.7099831594489566,
+    "validation_value": NaN
+  },
+  {
+    "episode": 115,
+    "reward": -3.23275227203521,
+    "portfolio_value": 10958.655139175415,
+    "trades": 167,
+    "win_rate": 0.24302788844621515,
+    "epsilon": 0.7078532099706097,
+    "validation_value": 12692.586603027345
+  },
+  {
+    "episode": 116,
+    "reward": -2.1514394789846816,
+    "portfolio_value": 10385.370870727536,
+    "trades": 180,
+    "win_rate": 0.22709163346613545,
+    "epsilon": 0.7057296503406979,
+    "validation_value": NaN
+  },
+  {
+    "episode": 117,
+    "reward": -1.7447267345425406,
+    "portfolio_value": 15928.51273511505,
+    "trades": 160,
+    "win_rate": 0.398406374501992,
+    "epsilon": 0.7036124613896758,
+    "validation_value": NaN
+  },
+  {
+    "episode": 118,
+    "reward": -1.5650333941262848,
+    "portfolio_value": 11584.639637634275,
+    "trades": 177,
+    "win_rate": 0.33067729083665337,
+    "epsilon": 0.7015016240055068,
+    "validation_value": NaN
+  },
+  {
+    "episode": 119,
+    "reward": -1.141511281864472,
+    "portfolio_value": 12061.404323043824,
+    "trades": 173,
+    "win_rate": 0.3426294820717131,
+    "epsilon": 0.6993971191334902,
+    "validation_value": NaN
+  },
+  {
+    "episode": 120,
+    "reward": -1.0213294502438444,
+    "portfolio_value": 14063.863434226976,
+    "trades": 180,
+    "win_rate": 0.38645418326693226,
+    "epsilon": 0.6972989277760897,
+    "validation_value": 11400.245213119511
+  },
+  {
+    "episode": 121,
+    "reward": -1.710016801048585,
+    "portfolio_value": 10579.311843292237,
+    "trades": 178,
+    "win_rate": 0.3147410358565737,
+    "epsilon": 0.6952070309927615,
+    "validation_value": NaN
+  },
+  {
+    "episode": 122,
+    "reward": -1.5269888085035688,
+    "portfolio_value": 11183.58799079132,
+    "trades": 174,
+    "win_rate": 0.3466135458167331,
+    "epsilon": 0.6931214098997832,
+    "validation_value": NaN
+  },
+  {
+    "episode": 123,
+    "reward": -2.29558068157212,
+    "portfolio_value": 11488.478329383848,
+    "trades": 186,
+    "win_rate": 0.27091633466135456,
+    "epsilon": 0.6910420456700839,
+    "validation_value": NaN
+  },
+  {
+    "episode": 124,
+    "reward": -1.817934525514523,
+    "portfolio_value": 11775.28933862305,
+    "trades": 184,
+    "win_rate": 0.2868525896414343,
+    "epsilon": 0.6889689195330736,
+    "validation_value": NaN
+  },
+  {
+    "episode": 125,
+    "reward": -0.8855804744348159,
+    "portfolio_value": 11619.798797195432,
+    "trades": 184,
+    "win_rate": 0.3784860557768924,
+    "epsilon": 0.6869020127744744,
+    "validation_value": 11488.777215576172
+  },
+  {
+    "episode": 126,
+    "reward": -1.6055276824389748,
+    "portfolio_value": 10830.13867962646,
+    "trades": 194,
+    "win_rate": 0.24701195219123506,
+    "epsilon": 0.684841306736151,
+    "validation_value": NaN
+  },
+  {
+    "episode": 127,
+    "reward": -1.8254309269096476,
+    "portfolio_value": 12696.314532630915,
+    "trades": 177,
+    "win_rate": 0.3107569721115538,
+    "epsilon": 0.6827867828159425,
+    "validation_value": NaN
+  },
+  {
+    "episode": 128,
+    "reward": -0.3122289330801413,
+    "portfolio_value": 13066.732780319211,
+    "trades": 171,
+    "win_rate": 0.44223107569721115,
+    "epsilon": 0.6807384224674947,
+    "validation_value": NaN
+  },
+  {
+    "episode": 129,
+    "reward": -1.3004584589498844,
+    "portfolio_value": 10694.035564346317,
+    "trades": 174,
+    "win_rate": 0.3386454183266932,
+    "epsilon": 0.6786962072000923,
+    "validation_value": NaN
+  },
+  {
+    "episode": 130,
+    "reward": -1.622518069170074,
+    "portfolio_value": 10974.653279113769,
+    "trades": 173,
+    "win_rate": 0.2749003984063745,
+    "epsilon": 0.676660118578492,
+    "validation_value": 11763.2341040039
+  },
+  {
+    "episode": 131,
+    "reward": -1.8898963043051134,
+    "portfolio_value": 11339.466104476927,
+    "trades": 177,
+    "win_rate": 0.23107569721115537,
+    "epsilon": 0.6746301382227565,
+    "validation_value": NaN
+  },
+  {
+    "episode": 132,
+    "reward": -1.5944211381326217,
+    "portfolio_value": 10956.88048648072,
+    "trades": 194,
+    "win_rate": 0.30677290836653387,
+    "epsilon": 0.6726062478080883,
+    "validation_value": NaN
+  },
+  {
+    "episode": 133,
+    "reward": -1.21141995039459,
+    "portfolio_value": 13759.75801776887,
+    "trades": 184,
+    "win_rate": 0.3665338645418327,
+    "epsilon": 0.6705884290646641,
+    "validation_value": NaN
+  },
+  {
+    "episode": 134,
+    "reward": -1.2745988265957582,
+    "portfolio_value": 10780.34623863221,
+    "trades": 170,
+    "win_rate": 0.3386454183266932,
+    "epsilon": 0.66857666377747,
+    "validation_value": NaN
+  },
+  {
+    "episode": 135,
+    "reward": -0.5250153405114758,
+    "portfolio_value": 12139.287486450197,
+    "trades": 186,
+    "win_rate": 0.38247011952191234,
+    "epsilon": 0.6665709337861376,
+    "validation_value": 10703.614016860967
+  },
+  {
+    "episode": 136,
+    "reward": -0.7167961538121016,
+    "portfolio_value": 12101.89942918396,
+    "trades": 187,
+    "win_rate": 0.36254980079681276,
+    "epsilon": 0.6645712209847792,
+    "validation_value": NaN
+  },
+  {
+    "episode": 137,
+    "reward": -1.8524017167587346,
+    "portfolio_value": 9409.12373052978,
+    "trades": 181,
+    "win_rate": 0.1394422310756972,
+    "epsilon": 0.6625775073218249,
+    "validation_value": NaN
+  },
+  {
+    "episode": 138,
+    "reward": -2.4767051427841174,
+    "portfolio_value": 15019.575267791752,
+    "trades": 165,
+    "win_rate": 0.3745019920318725,
+    "epsilon": 0.6605897747998594,
+    "validation_value": NaN
+  },
+  {
+    "episode": 139,
+    "reward": -0.6607872938369762,
+    "portfolio_value": 11957.53936707306,
+    "trades": 184,
+    "win_rate": 0.3705179282868526,
+    "epsilon": 0.6586080054754598,
+    "validation_value": NaN
+  },
+  {
+    "episode": 140,
+    "reward": -1.255922151105342,
+    "portfolio_value": 10767.543083084114,
+    "trades": 186,
+    "win_rate": 0.3187250996015936,
+    "epsilon": 0.6566321814590335,
+    "validation_value": 11088.736094802854
+  },
+  {
+    "episode": 141,
+    "reward": -1.757517300195923,
+    "portfolio_value": 12242.27831233215,
+    "trades": 173,
+    "win_rate": 0.32270916334661354,
+    "epsilon": 0.6546622849146564,
+    "validation_value": NaN
+  },
+  {
+    "episode": 142,
+    "reward": -1.6185915223738134,
+    "portfolio_value": 11305.868932479862,
+    "trades": 173,
+    "win_rate": 0.3147410358565737,
+    "epsilon": 0.6526982980599124,
+    "validation_value": NaN
+  },
+  {
+    "episode": 143,
+    "reward": -1.2568170085495032,
+    "portfolio_value": 11648.80819993591,
+    "trades": 189,
+    "win_rate": 0.3346613545816733,
+    "epsilon": 0.6507402031657327,
+    "validation_value": NaN
+  },
+  {
+    "episode": 144,
+    "reward": -0.9622616588897649,
+    "portfolio_value": 11488.31099620057,
+    "trades": 174,
+    "win_rate": 0.3705179282868526,
+    "epsilon": 0.6487879825562355,
+    "validation_value": NaN
+  },
+  {
+    "episode": 145,
+    "reward": -1.2144842588128588,
+    "portfolio_value": 12096.490632331852,
+    "trades": 182,
+    "win_rate": 0.3466135458167331,
+    "epsilon": 0.6468416186085668,
+    "validation_value": 10089.747893341062
+  },
+  {
+    "episode": 146,
+    "reward": -0.8575449021905525,
+    "portfolio_value": 11783.84341136169,
+    "trades": 181,
+    "win_rate": 0.40239043824701193,
+    "epsilon": 0.6449010937527411,
+    "validation_value": NaN
+  },
+  {
+    "episode": 147,
+    "reward": -1.0046362847857722,
+    "portfolio_value": 15354.06574668884,
+    "trades": 165,
+    "win_rate": 0.4262948207171315,
+    "epsilon": 0.6429663904714829,
+    "validation_value": NaN
+  },
+  {
+    "episode": 148,
+    "reward": -1.3547315459381148,
+    "portfolio_value": 12162.925250495911,
+    "trades": 178,
+    "win_rate": 0.32669322709163345,
+    "epsilon": 0.6410374913000684,
+    "validation_value": NaN
+  },
+  {
+    "episode": 149,
+    "reward": -0.7196974962670882,
+    "portfolio_value": 11371.966228012083,
+    "trades": 183,
+    "win_rate": 0.3665338645418327,
+    "epsilon": 0.6391143788261682,
+    "validation_value": NaN
+  },
+  {
+    "episode": 150,
+    "reward": -0.965615217996527,
+    "portfolio_value": 12480.490680854795,
+    "trades": 183,
+    "win_rate": 0.3705179282868526,
+    "epsilon": 0.6371970356896897,
+    "validation_value": 10293.876248107905
+  },
+  {
+    "episode": 151,
+    "reward": -1.1239110686953735,
+    "portfolio_value": 11543.439622467045,
+    "trades": 187,
+    "win_rate": 0.3466135458167331,
+    "epsilon": 0.6352854445826206,
+    "validation_value": NaN
+  },
+  {
+    "episode": 152,
+    "reward": -0.5882629050650042,
+    "portfolio_value": 11708.454398765563,
+    "trades": 188,
+    "win_rate": 0.38645418326693226,
+    "epsilon": 0.6333795882488727,
+    "validation_value": NaN
+  },
+  {
+    "episode": 153,
+    "reward": -1.3484315487570198,
+    "portfolio_value": 12298.70071038818,
+    "trades": 203,
+    "win_rate": 0.35856573705179284,
+    "epsilon": 0.6314794494841262,
+    "validation_value": NaN
+  },
+  {
+    "episode": 154,
+    "reward": -0.6528794777653508,
+    "portfolio_value": 11864.023796066283,
+    "trades": 167,
+    "win_rate": 0.3784860557768924,
+    "epsilon": 0.6295850111356738,
+    "validation_value": NaN
+  },
+  {
+    "episode": 155,
+    "reward": -1.3628158819571004,
+    "portfolio_value": 10560.186978103637,
+    "trades": 179,
+    "win_rate": 0.3107569721115538,
+    "epsilon": 0.6276962561022668,
+    "validation_value": 11206.095201004016
+  },
+  {
+    "episode": 156,
+    "reward": -1.0170163693923908,
+    "portfolio_value": 12114.393242279059,
+    "trades": 170,
+    "win_rate": 0.3745019920318725,
+    "epsilon": 0.62581316733396,
+    "validation_value": NaN
+  },
+  {
+    "episode": 157,
+    "reward": -0.9866105313534561,
+    "portfolio_value": 12616.06338769531,
+    "trades": 185,
+    "win_rate": 0.3545816733067729,
+    "epsilon": 0.623935727831958,
+    "validation_value": NaN
+  },
+  {
+    "episode": 158,
+    "reward": -1.799238710697927,
+    "portfolio_value": 10883.374585052497,
+    "trades": 175,
+    "win_rate": 0.250996015936255,
+    "epsilon": 0.6220639206484622,
+    "validation_value": NaN
+  },
+  {
+    "episode": 159,
+    "reward": -1.0126096749649094,
+    "portfolio_value": 11481.230035736087,
+    "trades": 179,
+    "win_rate": 0.3346613545816733,
+    "epsilon": 0.6201977288865168,
+    "validation_value": NaN
+  },
+  {
+    "episode": 160,
+    "reward": -0.4956710065557897,
+    "portfolio_value": 13099.622946884154,
+    "trades": 177,
+    "win_rate": 0.3665338645418327,
+    "epsilon": 0.6183371356998573,
+    "validation_value": 10416.375423217769
+  },
+  {
+    "episode": 161,
+    "reward": -1.4071940787188677,
+    "portfolio_value": 11425.404815971375,
+    "trades": 191,
+    "win_rate": 0.3386454183266932,
+    "epsilon": 0.6164821242927577,
+    "validation_value": NaN
+  },
+  {
+    "episode": 162,
+    "reward": -2.205616761146538,
+    "portfolio_value": 11293.660585174566,
+    "trades": 180,
+    "win_rate": 0.27091633466135456,
+    "epsilon": 0.6146326779198794,
+    "validation_value": NaN
+  },
+  {
+    "episode": 163,
+    "reward": -1.5464893366216992,
+    "portfolio_value": 10810.59098028565,
+    "trades": 187,
+    "win_rate": 0.2749003984063745,
+    "epsilon": 0.6127887798861198,
+    "validation_value": NaN
+  },
+  {
+    "episode": 164,
+    "reward": -1.7710261851730336,
+    "portfolio_value": 11641.996790672296,
+    "trades": 183,
+    "win_rate": 0.3107569721115538,
+    "epsilon": 0.6109504135464614,
+    "validation_value": NaN
+  },
+  {
+    "episode": 165,
+    "reward": -1.545185050195006,
+    "portfolio_value": 10280.74388773346,
+    "trades": 188,
+    "win_rate": 0.32270916334661354,
+    "epsilon": 0.609117562305822,
+    "validation_value": 11442.687106597903
+  },
+  {
+    "episode": 166,
+    "reward": -1.032090642290346,
+    "portfolio_value": 11389.462328086853,
+    "trades": 185,
+    "win_rate": 0.398406374501992,
+    "epsilon": 0.6072902096189046,
+    "validation_value": NaN
+  },
+  {
+    "episode": 167,
+    "reward": -0.5674959307028169,
+    "portfolio_value": 12428.469151855474,
+    "trades": 166,
+    "win_rate": 0.4063745019920319,
+    "epsilon": 0.6054683389900478,
+    "validation_value": NaN
+  },
+  {
+    "episode": 168,
+    "reward": -1.4760521344094875,
+    "portfolio_value": 12620.258251602172,
+    "trades": 171,
+    "win_rate": 0.32669322709163345,
+    "epsilon": 0.6036519339730777,
+    "validation_value": NaN
+  },
+  {
+    "episode": 169,
+    "reward": -0.631394780769959,
+    "portfolio_value": 12042.39101635742,
+    "trades": 172,
+    "win_rate": 0.3705179282868526,
+    "epsilon": 0.6018409781711584,
+    "validation_value": NaN
+  },
+  {
+    "episode": 170,
+    "reward": -1.86244578073532,
+    "portfolio_value": 15047.812283546442,
+    "trades": 169,
+    "win_rate": 0.3665338645418327,
+    "epsilon": 0.6000354552366449,
+    "validation_value": 10599.63002177429
+  },
+  {
+    "episode": 171,
+    "reward": -2.0618403349255328,
+    "portfolio_value": 12834.384977249145,
+    "trades": 174,
+    "win_rate": 0.3147410358565737,
+    "epsilon": 0.598235348870935,
+    "validation_value": NaN
+  },
+  {
+    "episode": 172,
+    "reward": -0.9163882371955827,
+    "portfolio_value": 12094.255563163762,
+    "trades": 187,
+    "win_rate": 0.38645418326693226,
+    "epsilon": 0.5964406428243222,
+    "validation_value": NaN
+  },
+  {
+    "episode": 173,
+    "reward": -1.3164284228654535,
+    "portfolio_value": 12785.47138501739,
+    "trades": 195,
+    "win_rate": 0.3466135458167331,
+    "epsilon": 0.5946513208958493,
+    "validation_value": NaN
+  },
+  {
+    "episode": 174,
+    "reward": -0.9201699019090158,
+    "portfolio_value": 13314.079241294869,
+    "trades": 179,
+    "win_rate": 0.36254980079681276,
+    "epsilon": 0.5928673669331617,
+    "validation_value": NaN
+  },
+  {
+    "episode": 175,
+    "reward": -1.0116168702285733,
+    "portfolio_value": 10951.611228034977,
+    "trades": 189,
+    "win_rate": 0.3187250996015936,
+    "epsilon": 0.5910887648323622,
+    "validation_value": 10539.51043885803
+  },
+  {
+    "episode": 176,
+    "reward": -2.0421586176776207,
+    "portfolio_value": 10912.929892120359,
+    "trades": 194,
+    "win_rate": 0.22709163346613545,
+    "epsilon": 0.5893154985378651,
+    "validation_value": NaN
+  },
+  {
+    "episode": 177,
+    "reward": -0.7388792855136121,
+    "portfolio_value": 12228.484988189695,
+    "trades": 188,
+    "win_rate": 0.3426294820717131,
+    "epsilon": 0.5875475520422515,
+    "validation_value": NaN
+  },
+  {
+    "episode": 178,
+    "reward": -1.0782097921531684,
+    "portfolio_value": 12527.66940571595,
+    "trades": 187,
+    "win_rate": 0.3665338645418327,
+    "epsilon": 0.5857849093861247,
+    "validation_value": NaN
+  },
+  {
+    "episode": 179,
+    "reward": -0.4602776841346709,
+    "portfolio_value": 13584.015837005616,
+    "trades": 174,
+    "win_rate": 0.3904382470119522,
+    "epsilon": 0.5840275546579663,
+    "validation_value": NaN
+  },
+  {
+    "episode": 180,
+    "reward": -0.8054006902108704,
+    "portfolio_value": 10780.221685028084,
+    "trades": 191,
+    "win_rate": 0.3545816733067729,
+    "epsilon": 0.5822754719939924,
+    "validation_value": 10406.140455017086
+  },
+  {
+    "episode": 181,
+    "reward": 0.03665439306426778,
+    "portfolio_value": 13193.386619499202,
+    "trades": 177,
+    "win_rate": 0.4860557768924303,
+    "epsilon": 0.5805286455780104,
+    "validation_value": NaN
+  },
+  {
+    "episode": 182,
+    "reward": -0.6770661392100504,
+    "portfolio_value": 11796.123425422671,
+    "trades": 169,
+    "win_rate": 0.350597609561753,
+    "epsilon": 0.5787870596412764,
+    "validation_value": NaN
+  },
+  {
+    "episode": 183,
+    "reward": -0.8772685058218486,
+    "portfolio_value": 10957.96007078552,
+    "trades": 174,
+    "win_rate": 0.3745019920318725,
+    "epsilon": 0.5770506984623526,
+    "validation_value": NaN
+  },
+  {
+    "episode": 184,
+    "reward": -1.1721804281387347,
+    "portfolio_value": 12120.408590637207,
+    "trades": 182,
+    "win_rate": 0.32270916334661354,
+    "epsilon": 0.5753195463669655,
+    "validation_value": NaN
+  },
+  {
+    "episode": 185,
+    "reward": -1.4976561185818473,
+    "portfolio_value": 12014.22177629089,
+    "trades": 167,
+    "win_rate": 0.30278884462151395,
+    "epsilon": 0.5735935877278646,
+    "validation_value": 10491.197354415897
+  },
+  {
+    "episode": 186,
+    "reward": -0.6199167952224722,
+    "portfolio_value": 10859.643049942024,
+    "trades": 169,
+    "win_rate": 0.3745019920318725,
+    "epsilon": 0.571872806964681,
+    "validation_value": NaN
+  },
+  {
+    "episode": 187,
+    "reward": -0.7256228264073157,
+    "portfolio_value": 13311.289027412415,
+    "trades": 171,
+    "win_rate": 0.3386454183266932,
+    "epsilon": 0.5701571885437869,
+    "validation_value": NaN
+  },
+  {
+    "episode": 188,
+    "reward": -0.2948176306434614,
+    "portfolio_value": 10932.299176940924,
+    "trades": 177,
+    "win_rate": 0.38645418326693226,
+    "epsilon": 0.5684467169781556,
+    "validation_value": NaN
+  },
+  {
+    "episode": 189,
+    "reward": -0.8934259388955709,
+    "portfolio_value": 13038.985005500786,
+    "trades": 190,
+    "win_rate": 0.3545816733067729,
+    "epsilon": 0.5667413768272211,
+    "validation_value": NaN
+  },
+  {
+    "episode": 190,
+    "reward": -0.2751244053717092,
+    "portfolio_value": 12310.722176841731,
+    "trades": 171,
+    "win_rate": 0.4342629482071713,
+    "epsilon": 0.5650411526967395,
+    "validation_value": 10000.0
+  },
+  {
+    "episode": 191,
+    "reward": -1.0262354627024841,
+    "portfolio_value": 11594.79127429962,
+    "trades": 177,
+    "win_rate": 0.33067729083665337,
+    "epsilon": 0.5633460292386493,
+    "validation_value": NaN
+  },
+  {
+    "episode": 192,
+    "reward": -1.0844200398577883,
+    "portfolio_value": 10784.754757644652,
+    "trades": 176,
+    "win_rate": 0.2749003984063745,
+    "epsilon": 0.5616559911509333,
+    "validation_value": NaN
+  },
+  {
+    "episode": 193,
+    "reward": -1.7221578741091907,
+    "portfolio_value": 10160.12439888,
+    "trades": 189,
+    "win_rate": 0.2948207171314741,
+    "epsilon": 0.5599710231774805,
+    "validation_value": NaN
+  },
+  {
+    "episode": 194,
+    "reward": -0.4599225821296625,
+    "portfolio_value": 11282.48775617219,
+    "trades": 191,
+    "win_rate": 0.4063745019920319,
+    "epsilon": 0.5582911101079481,
+    "validation_value": NaN
+  },
+  {
+    "episode": 195,
+    "reward": 0.1590517882434087,
+    "portfolio_value": 12627.028083175663,
+    "trades": 194,
+    "win_rate": 0.5338645418326693,
+    "epsilon": 0.5566162367776242,
+    "validation_value": 9981.181177764895
+  },
+  {
+    "episode": 196,
+    "reward": -0.8645290071806288,
+    "portfolio_value": 13527.159841583263,
+    "trades": 179,
+    "win_rate": 0.3665338645418327,
+    "epsilon": 0.5549463880672914,
+    "validation_value": NaN
+  },
+  {
+    "episode": 197,
+    "reward": -0.7526360957272354,
+    "portfolio_value": 12672.483308204652,
+    "trades": 167,
+    "win_rate": 0.40239043824701193,
+    "epsilon": 0.5532815489030894,
+    "validation_value": NaN
+  },
+  {
+    "episode": 198,
+    "reward": -0.7921242038645947,
+    "portfolio_value": 13339.793711112972,
+    "trades": 191,
+    "win_rate": 0.38645418326693226,
+    "epsilon": 0.5516217042563801,
+    "validation_value": NaN
+  },
+  {
+    "episode": 199,
+    "reward": -0.6910259231152327,
+    "portfolio_value": 12959.23190890503,
+    "trades": 184,
+    "win_rate": 0.4262948207171315,
+    "epsilon": 0.549966839143611,
+    "validation_value": NaN
+  },
+  {
+    "episode": 200,
+    "reward": -0.1722181003756677,
+    "portfolio_value": 12818.648873039252,
+    "trades": 190,
+    "win_rate": 0.4103585657370518,
+    "epsilon": 0.5483169386261801,
+    "validation_value": 10218.995650848385
+  },
+  {
+    "episode": 201,
+    "reward": -0.20065835012939293,
+    "portfolio_value": 11241.085552703864,
+    "trades": 175,
+    "win_rate": 0.43824701195219123,
+    "epsilon": 0.5466719878103016,
+    "validation_value": NaN
+  },
+  {
+    "episode": 202,
+    "reward": -0.30851481873474446,
+    "portfolio_value": 11584.05168596649,
+    "trades": 180,
+    "win_rate": 0.3904382470119522,
+    "epsilon": 0.5450319718468707,
+    "validation_value": NaN
+  },
+  {
+    "episode": 203,
+    "reward": -1.003507187317506,
+    "portfolio_value": 10818.09277537537,
+    "trades": 195,
+    "win_rate": 0.3386454183266932,
+    "epsilon": 0.5433968759313301,
+    "validation_value": NaN
+  },
+  {
+    "episode": 204,
+    "reward": -1.015178239992677,
+    "portfolio_value": 11979.590521179198,
+    "trades": 192,
+    "win_rate": 0.3426294820717131,
+    "epsilon": 0.5417666853035361,
+    "validation_value": NaN
+  },
+  {
+    "episode": 205,
+    "reward": -0.4983730836453244,
+    "portfolio_value": 11160.150052658088,
+    "trades": 179,
+    "win_rate": 0.38645418326693226,
+    "epsilon": 0.5401413852476254,
+    "validation_value": 10126.665315155029
+  },
+  {
+    "episode": 206,
+    "reward": -0.5630622701593017,
+    "portfolio_value": 12419.961412185672,
+    "trades": 187,
+    "win_rate": 0.4541832669322709,
+    "epsilon": 0.5385209610918825,
+    "validation_value": NaN
+  },
+  {
+    "episode": 207,
+    "reward": -0.8520194934028638,
+    "portfolio_value": 11813.364131973267,
+    "trades": 195,
+    "win_rate": 0.4302788844621514,
+    "epsilon": 0.5369053982086068,
+    "validation_value": NaN
+  },
+  {
+    "episode": 208,
+    "reward": -0.44384327826660547,
+    "portfolio_value": 11420.210650749203,
+    "trades": 176,
+    "win_rate": 0.41832669322709165,
+    "epsilon": 0.535294682013981,
+    "validation_value": NaN
+  },
+  {
+    "episode": 209,
+    "reward": -1.0570714614006018,
+    "portfolio_value": 11689.789835540781,
+    "trades": 193,
+    "win_rate": 0.38247011952191234,
+    "epsilon": 0.5336887979679391,
+    "validation_value": NaN
+  },
+  {
+    "episode": 210,
+    "reward": -0.5108397309055994,
+    "portfolio_value": 10885.810745018007,
+    "trades": 172,
+    "win_rate": 0.4541832669322709,
+    "epsilon": 0.5320877315740353,
+    "validation_value": 10032.524366104122
+  },
+  {
+    "episode": 211,
+    "reward": -0.78524861236801,
+    "portfolio_value": 12112.102245231628,
+    "trades": 170,
+    "win_rate": 0.350597609561753,
+    "epsilon": 0.5304914683793133,
+    "validation_value": NaN
+  },
+  {
+    "episode": 212,
+    "reward": -0.30875387762298984,
+    "portfolio_value": 12960.094531234736,
+    "trades": 191,
+    "win_rate": 0.4063745019920319,
+    "epsilon": 0.5288999939741753,
+    "validation_value": NaN
+  },
+  {
+    "episode": 213,
+    "reward": -1.175838204993437,
+    "portfolio_value": 10532.995695274345,
+    "trades": 159,
+    "win_rate": 0.35856573705179284,
+    "epsilon": 0.5273132939922528,
+    "validation_value": NaN
+  },
+  {
+    "episode": 214,
+    "reward": -0.5251845797491462,
+    "portfolio_value": 10877.5119004364,
+    "trades": 171,
+    "win_rate": 0.350597609561753,
+    "epsilon": 0.525731354110276,
+    "validation_value": NaN
+  },
+  {
+    "episode": 215,
+    "reward": -0.5274921366555756,
+    "portfolio_value": 12375.146592185984,
+    "trades": 182,
+    "win_rate": 0.4103585657370518,
+    "epsilon": 0.5241541600479452,
+    "validation_value": 10074.304494186394
+  },
+  {
+    "episode": 216,
+    "reward": -0.7166309383773884,
+    "portfolio_value": 12951.290032806392,
+    "trades": 184,
+    "win_rate": 0.42231075697211157,
+    "epsilon": 0.5225816975678014,
+    "validation_value": NaN
+  },
+  {
+    "episode": 217,
+    "reward": -1.8447418075344821,
+    "portfolio_value": 15306.961584709174,
+    "trades": 132,
+    "win_rate": 0.3545816733067729,
+    "epsilon": 0.521013952475098,
+    "validation_value": NaN
+  },
+  {
+    "episode": 218,
+    "reward": -0.6834919940028403,
+    "portfolio_value": 13779.994616104123,
+    "trades": 176,
+    "win_rate": 0.4063745019920319,
+    "epsilon": 0.5194509106176727,
+    "validation_value": NaN
+  },
+  {
+    "episode": 219,
+    "reward": -0.6861462585363791,
+    "portfolio_value": 11548.132284576415,
+    "trades": 184,
+    "win_rate": 0.398406374501992,
+    "epsilon": 0.5178925578858197,
+    "validation_value": NaN
+  },
+  {
+    "episode": 220,
+    "reward": -0.4163130939099082,
+    "portfolio_value": 11757.469557868963,
+    "trades": 195,
+    "win_rate": 0.41434262948207173,
+    "epsilon": 0.5163388802121622,
+    "validation_value": 10147.240667068478
+  },
+  {
+    "episode": 221,
+    "reward": -1.873272734629976,
+    "portfolio_value": 12525.774705123898,
+    "trades": 180,
+    "win_rate": 0.28286852589641437,
+    "epsilon": 0.5147898635715258,
+    "validation_value": NaN
+  },
+  {
+    "episode": 222,
+    "reward": -0.8664587888531484,
+    "portfolio_value": 11420.319782806402,
+    "trades": 192,
+    "win_rate": 0.3784860557768924,
+    "epsilon": 0.5132454939808112,
+    "validation_value": NaN
+  },
+  {
+    "episode": 223,
+    "reward": -0.6536373357540962,
+    "portfolio_value": 12874.494222076413,
+    "trades": 193,
+    "win_rate": 0.3944223107569721,
+    "epsilon": 0.5117057574988688,
+    "validation_value": NaN
+  },
+  {
+    "episode": 224,
+    "reward": -1.0551388204270953,
+    "portfolio_value": 12540.764747985837,
+    "trades": 183,
+    "win_rate": 0.36254980079681276,
+    "epsilon": 0.5101706402263723,
+    "validation_value": NaN
+  },
+  {
+    "episode": 225,
+    "reward": -1.2366590481790178,
+    "portfolio_value": 12712.172384506228,
+    "trades": 186,
+    "win_rate": 0.41832669322709165,
+    "epsilon": 0.5086401283056932,
+    "validation_value": 10095.595430511474
+  },
+  {
+    "episode": 226,
+    "reward": -0.5701954789659122,
+    "portfolio_value": 13474.053642204286,
+    "trades": 164,
+    "win_rate": 0.3944223107569721,
+    "epsilon": 0.5071142079207761,
+    "validation_value": NaN
+  },
+  {
+    "episode": 227,
+    "reward": -0.33920113251373574,
+    "portfolio_value": 12187.619821746823,
+    "trades": 170,
+    "win_rate": 0.4063745019920319,
+    "epsilon": 0.5055928652970137,
+    "validation_value": NaN
+  },
+  {
+    "episode": 228,
+    "reward": -0.6001285761084044,
+    "portfolio_value": 12056.6117946167,
+    "trades": 194,
+    "win_rate": 0.32669322709163345,
+    "epsilon": 0.5040760867011227,
+    "validation_value": NaN
+  },
+  {
+    "episode": 229,
+    "reward": -1.0151998455773887,
+    "portfolio_value": 11979.334144424442,
+    "trades": 179,
+    "win_rate": 0.32270916334661354,
+    "epsilon": 0.5025638584410194,
+    "validation_value": NaN
+  },
+  {
+    "episode": 230,
+    "reward": -0.7863998884529116,
+    "portfolio_value": 12300.358911865234,
+    "trades": 157,
+    "win_rate": 0.3426294820717131,
+    "epsilon": 0.5010561668656963,
+    "validation_value": 9953.288795120237
+  },
+  {
+    "episode": 231,
+    "reward": -0.5947577200378382,
+    "portfolio_value": 11893.378334655765,
+    "trades": 177,
+    "win_rate": 0.3705179282868526,
+    "epsilon": 0.49955299836509925,
+    "validation_value": NaN
+  },
+  {
+    "episode": 232,
+    "reward": -0.19275259872314537,
+    "portfolio_value": 12478.43631603241,
+    "trades": 194,
+    "win_rate": 0.4581673306772908,
+    "epsilon": 0.49805433937000393,
+    "validation_value": NaN
+  },
+  {
+    "episode": 233,
+    "reward": -3.1284713424070807,
+    "portfolio_value": 15132.14999004363,
+    "trades": 140,
+    "win_rate": 0.32669322709163345,
+    "epsilon": 0.4965601763518939,
+    "validation_value": NaN
+  },
+  {
+    "episode": 234,
+    "reward": -1.106292691291357,
+    "portfolio_value": 13231.785130760192,
+    "trades": 188,
+    "win_rate": 0.38645418326693226,
+    "epsilon": 0.49507049582283824,
+    "validation_value": NaN
+  },
+  {
+    "episode": 235,
+    "reward": -1.0464376980319186,
+    "portfolio_value": 10599.537297546392,
+    "trades": 178,
+    "win_rate": 0.3466135458167331,
+    "epsilon": 0.49358528433536975,
+    "validation_value": 10110.459665710448
+  },
+  {
+    "episode": 236,
+    "reward": -0.4937723472213703,
+    "portfolio_value": 14006.740395240788,
+    "trades": 187,
+    "win_rate": 0.3745019920318725,
+    "epsilon": 0.49210452848236363,
+    "validation_value": NaN
+  },
+  {
+    "episode": 237,
+    "reward": -0.7824817107360856,
+    "portfolio_value": 12658.361872718813,
+    "trades": 182,
+    "win_rate": 0.33067729083665337,
+    "epsilon": 0.49062821489691655,
+    "validation_value": NaN
+  },
+  {
+    "episode": 238,
+    "reward": -0.6680077612234501,
+    "portfolio_value": 10468.05323973083,
+    "trades": 191,
+    "win_rate": 0.3705179282868526,
+    "epsilon": 0.4891563302522258,
+    "validation_value": NaN
+  },
+  {
+    "episode": 239,
+    "reward": -0.6044271815101622,
+    "portfolio_value": 12971.44299784088,
+    "trades": 179,
+    "win_rate": 0.42231075697211157,
+    "epsilon": 0.48768886126146915,
+    "validation_value": NaN
+  },
+  {
+    "episode": 240,
+    "reward": -1.1076058263479602,
+    "portfolio_value": 11626.794530914303,
+    "trades": 188,
+    "win_rate": 0.2749003984063745,
+    "epsilon": 0.48622579467768473,
+    "validation_value": 10038.128781677246
+  },
+  {
+    "episode": 241,
+    "reward": -0.5588680755949395,
+    "portfolio_value": 12882.537036865233,
+    "trades": 184,
+    "win_rate": 0.38247011952191234,
+    "epsilon": 0.4847671172936517,
+    "validation_value": NaN
+  },
+  {
+    "episode": 242,
+    "reward": -1.43639489995361,
+    "portfolio_value": 11445.13805912781,
+    "trades": 181,
+    "win_rate": 0.3147410358565737,
+    "epsilon": 0.4833128159417707,
+    "validation_value": NaN
+  },
+  {
+    "episode": 243,
+    "reward": -1.173937850803835,
+    "portfolio_value": 14919.031976043701,
+    "trades": 167,
+    "win_rate": 0.3705179282868526,
+    "epsilon": 0.4818628774939454,
+    "validation_value": NaN
+  },
+  {
+    "episode": 244,
+    "reward": -1.235925462858275,
+    "portfolio_value": 12189.336596275332,
+    "trades": 194,
+    "win_rate": 0.3745019920318725,
+    "epsilon": 0.48041728886146357,
+    "validation_value": NaN
+  },
+  {
+    "episode": 245,
+    "reward": -1.353936786286006,
+    "portfolio_value": 11134.873013656621,
+    "trades": 179,
+    "win_rate": 0.250996015936255,
+    "epsilon": 0.4789760369948792,
+    "validation_value": 10269.650448806764
+  },
+  {
+    "episode": 246,
+    "reward": -1.2920487736088564,
+    "portfolio_value": 14207.523761116025,
+    "trades": 170,
+    "win_rate": 0.3665338645418327,
+    "epsilon": 0.47753910888389456,
+    "validation_value": NaN
+  },
+  {
+    "episode": 247,
+    "reward": -0.22668773867127068,
+    "portfolio_value": 14155.879233924858,
+    "trades": 188,
+    "win_rate": 0.4342629482071713,
+    "epsilon": 0.4761064915572429,
+    "validation_value": NaN
+  },
+  {
+    "episode": 248,
+    "reward": -1.782120244847413,
+    "portfolio_value": 11465.41384073639,
+    "trades": 179,
+    "win_rate": 0.3147410358565737,
+    "epsilon": 0.4746781720825711,
+    "validation_value": NaN
+  },
+  {
+    "episode": 249,
+    "reward": -0.5029604879885935,
+    "portfolio_value": 12711.251743896477,
+    "trades": 190,
+    "win_rate": 0.3745019920318725,
+    "epsilon": 0.4732541375663234,
+    "validation_value": NaN
+  },
+  {
+    "episode": 250,
+    "reward": -0.4155731437930328,
+    "portfolio_value": 15256.197991973871,
+    "trades": 182,
+    "win_rate": 0.44621513944223107,
+    "epsilon": 0.4718343751536244,
+    "validation_value": 10438.381501678465
+  },
+  {
+    "episode": 251,
+    "reward": -0.41036810748046937,
+    "portfolio_value": 12972.201721992493,
+    "trades": 173,
+    "win_rate": 0.41434262948207173,
+    "epsilon": 0.47041887202816357,
+    "validation_value": NaN
+  },
+  {
+    "episode": 252,
+    "reward": -0.42155791206146853,
+    "portfolio_value": 11600.886278121941,
+    "trades": 184,
+    "win_rate": 0.38645418326693226,
+    "epsilon": 0.4690076154120791,
+    "validation_value": NaN
+  },
+  {
+    "episode": 253,
+    "reward": -0.3918057086389158,
+    "portfolio_value": 11962.545671752927,
+    "trades": 169,
+    "win_rate": 0.38247011952191234,
+    "epsilon": 0.46760059256584285,
+    "validation_value": NaN
+  },
+  {
+    "episode": 254,
+    "reward": -0.4043824044889795,
+    "portfolio_value": 13055.522543075567,
+    "trades": 187,
+    "win_rate": 0.4262948207171315,
+    "epsilon": 0.4661977907881453,
+    "validation_value": NaN
+  },
+  {
+    "episode": 255,
+    "reward": -0.8704040005456547,
+    "portfolio_value": 12279.605960166933,
+    "trades": 176,
+    "win_rate": 0.3904382470119522,
+    "epsilon": 0.4647991974157809,
+    "validation_value": 10522.397268798832
+  },
+  {
+    "episode": 256,
+    "reward": -0.172659756681518,
+    "portfolio_value": 13916.95271484375,
+    "trades": 180,
+    "win_rate": 0.4342629482071713,
+    "epsilon": 0.46340479982353355,
+    "validation_value": NaN
+  },
+  {
+    "episode": 257,
+    "reward": -0.6500263171499644,
+    "portfolio_value": 12531.537808769226,
+    "trades": 185,
+    "win_rate": 0.3466135458167331,
+    "epsilon": 0.46201458542406293,
+    "validation_value": NaN
+  },
+  {
+    "episode": 258,
+    "reward": -0.7787937011053467,
+    "portfolio_value": 13185.62472663117,
+    "trades": 190,
+    "win_rate": 0.3944223107569721,
+    "epsilon": 0.4606285416677907,
+    "validation_value": NaN
+  },
+  {
+    "episode": 259,
+    "reward": -0.32783821066741886,
+    "portfolio_value": 13296.65982044983,
+    "trades": 189,
+    "win_rate": 0.41434262948207173,
+    "epsilon": 0.45924665604278736,
+    "validation_value": NaN
+  },
+  {
+    "episode": 260,
+    "reward": -0.917340675799558,
+    "portfolio_value": 11058.736512664796,
+    "trades": 175,
+    "win_rate": 0.350597609561753,
+    "epsilon": 0.457868916074659,
+    "validation_value": 10233.978965881352
+  },
+  {
+    "episode": 261,
+    "reward": -0.4900507836901876,
+    "portfolio_value": 12741.252413543702,
+    "trades": 187,
+    "win_rate": 0.36254980079681276,
+    "epsilon": 0.45649530932643506,
+    "validation_value": NaN
+  },
+  {
+    "episode": 262,
+    "reward": -0.17776822545989696,
+    "portfolio_value": 13116.967671119695,
+    "trades": 191,
+    "win_rate": 0.4541832669322709,
+    "epsilon": 0.45512582339845575,
+    "validation_value": NaN
+  },
+  {
+    "episode": 263,
+    "reward": -0.30603362812500323,
+    "portfolio_value": 12705.429369094847,
+    "trades": 185,
+    "win_rate": 0.398406374501992,
+    "epsilon": 0.45376044592826037,
+    "validation_value": NaN
+  },
+  {
+    "episode": 264,
+    "reward": -0.3143595962541289,
+    "portfolio_value": 12898.018430549613,
+    "trades": 191,
+    "win_rate": 0.50199203187251,
+    "epsilon": 0.4523991645904756,
+    "validation_value": NaN
+  },
+  {
+    "episode": 265,
+    "reward": -0.3962597077023333,
+    "portfolio_value": 14238.970974197391,
+    "trades": 198,
+    "win_rate": 0.44223107569721115,
+    "epsilon": 0.45104196709670413,
+    "validation_value": 10116.940904510495
+  },
+  {
+    "episode": 266,
+    "reward": -0.7611807127081307,
+    "portfolio_value": 10931.534132766723,
+    "trades": 179,
+    "win_rate": 0.3346613545816733,
+    "epsilon": 0.449688841195414,
+    "validation_value": NaN
+  },
+  {
+    "episode": 267,
+    "reward": -0.3091129427584747,
+    "portfolio_value": 11489.817771011361,
+    "trades": 172,
+    "win_rate": 0.3904382470119522,
+    "epsilon": 0.4483397746718278,
+    "validation_value": NaN
+  },
+  {
+    "episode": 268,
+    "reward": -0.3363863352908333,
+    "portfolio_value": 12074.20111184692,
+    "trades": 184,
+    "win_rate": 0.4541832669322709,
+    "epsilon": 0.4469947553478123,
+    "validation_value": NaN
+  },
+  {
+    "episode": 269,
+    "reward": -0.9664290918633917,
+    "portfolio_value": 10922.76562231446,
+    "trades": 184,
+    "win_rate": 0.2350597609561753,
+    "epsilon": 0.44565377108176885,
+    "validation_value": NaN
+  },
+  {
+    "episode": 270,
+    "reward": -1.0780201703051855,
+    "portfolio_value": 11389.963030242916,
+    "trades": 170,
+    "win_rate": 0.250996015936255,
+    "epsilon": 0.44431680976852356,
+    "validation_value": 10302.544067413335
+  },
+  {
+    "episode": 271,
+    "reward": -0.9287184358486977,
+    "portfolio_value": 11185.306879829404,
+    "trades": 168,
+    "win_rate": 0.30278884462151395,
+    "epsilon": 0.44298385933921797,
+    "validation_value": NaN
+  },
+  {
+    "episode": 272,
+    "reward": -1.6826135956645238,
+    "portfolio_value": 16046.655936347961,
+    "trades": 147,
+    "win_rate": 0.3904382470119522,
+    "epsilon": 0.4416549077612003,
+    "validation_value": NaN
+  },
+  {
+    "episode": 273,
+    "reward": -0.1146043573092652,
+    "portfolio_value": 14043.170226799011,
+    "trades": 196,
+    "win_rate": 0.4581673306772908,
+    "epsilon": 0.4403299430379167,
+    "validation_value": NaN
+  },
+  {
+    "episode": 274,
+    "reward": -0.3697899954000845,
+    "portfolio_value": 13026.442226417552,
+    "trades": 170,
+    "win_rate": 0.4701195219123506,
+    "epsilon": 0.43900895320880295,
+    "validation_value": NaN
+  },
+  {
+    "episode": 275,
+    "reward": -0.9528426357223521,
+    "portfolio_value": 11673.850413093565,
+    "trades": 191,
+    "win_rate": 0.3147410358565737,
+    "epsilon": 0.43769192634917653,
+    "validation_value": 10138.040869735714
+  },
+  {
+    "episode": 276,
+    "reward": -0.9351444358825688,
+    "portfolio_value": 13142.119078048703,
+    "trades": 175,
+    "win_rate": 0.3705179282868526,
+    "epsilon": 0.436378850570129,
+    "validation_value": NaN
+  },
+  {
+    "episode": 277,
+    "reward": -0.2564866842251566,
+    "portfolio_value": 13068.077700607302,
+    "trades": 174,
+    "win_rate": 0.35856573705179284,
+    "epsilon": 0.4350697140184186,
+    "validation_value": NaN
+  },
+  {
+    "episode": 278,
+    "reward": -0.007085692678529511,
+    "portfolio_value": 13736.732548576354,
+    "trades": 193,
+    "win_rate": 0.46613545816733065,
+    "epsilon": 0.43376450487636337,
+    "validation_value": NaN
+  },
+  {
+    "episode": 279,
+    "reward": -1.0617283307298262,
+    "portfolio_value": 15577.366773796088,
+    "trades": 160,
+    "win_rate": 0.3745019920318725,
+    "epsilon": 0.43246321136173427,
+    "validation_value": NaN
+  },
+  {
+    "episode": 280,
+    "reward": -0.1792036770022619,
+    "portfolio_value": 14314.269693054195,
+    "trades": 195,
+    "win_rate": 0.43824701195219123,
+    "epsilon": 0.43116582172764906,
+    "validation_value": 10702.114567535406
+  },
+  {
+    "episode": 281,
+    "reward": -0.6899975382159428,
+    "portfolio_value": 13621.422778068543,
+    "trades": 163,
+    "win_rate": 0.3426294820717131,
+    "epsilon": 0.42987232426246613,
+    "validation_value": NaN
+  },
+  {
+    "episode": 282,
+    "reward": -0.6040232077722147,
+    "portfolio_value": 13280.937950393674,
+    "trades": 187,
+    "win_rate": 0.3386454183266932,
+    "epsilon": 0.42858270728967873,
+    "validation_value": NaN
+  },
+  {
+    "episode": 283,
+    "reward": -0.5376848153088378,
+    "portfolio_value": 12067.230767158508,
+    "trades": 183,
+    "win_rate": 0.3784860557768924,
+    "epsilon": 0.4272969591678097,
+    "validation_value": NaN
+  },
+  {
+    "episode": 284,
+    "reward": -0.3477525315652473,
+    "portfolio_value": 12779.672754516607,
+    "trades": 174,
+    "win_rate": 0.398406374501992,
+    "epsilon": 0.4260150682903063,
+    "validation_value": NaN
+  },
+  {
+    "episode": 285,
+    "reward": -0.2044154479397568,
+    "portfolio_value": 11782.471578918467,
+    "trades": 183,
+    "win_rate": 0.4701195219123506,
+    "epsilon": 0.4247370230854354,
+    "validation_value": 10890.428384780886
+  },
+  {
+    "episode": 286,
+    "reward": -1.4055050116659535,
+    "portfolio_value": 13017.555189559935,
+    "trades": 177,
+    "win_rate": 0.32669322709163345,
+    "epsilon": 0.4234628120161791,
+    "validation_value": NaN
+  },
+  {
+    "episode": 287,
+    "reward": -0.3434115286053486,
+    "portfolio_value": 13911.51504421234,
+    "trades": 180,
+    "win_rate": 0.44621513944223107,
+    "epsilon": 0.42219242358013054,
+    "validation_value": NaN
+  },
+  {
+    "episode": 288,
+    "reward": -0.18092225192748432,
+    "portfolio_value": 13517.403606903079,
+    "trades": 181,
+    "win_rate": 0.3545816733067729,
+    "epsilon": 0.4209258463093902,
+    "validation_value": NaN
+  },
+  {
+    "episode": 289,
+    "reward": -0.6908882175830153,
+    "portfolio_value": 12137.825275024406,
+    "trades": 173,
+    "win_rate": 0.38645418326693226,
+    "epsilon": 0.419663068770462,
+    "validation_value": NaN
+  },
+  {
+    "episode": 290,
+    "reward": -0.10763041569702811,
+    "portfolio_value": 12275.726424423216,
+    "trades": 168,
+    "win_rate": 0.3545816733067729,
+    "epsilon": 0.4184040795641506,
+    "validation_value": 10486.494460021964
+  },
+  {
+    "episode": 291,
+    "reward": 0.12570254416442703,
+    "portfolio_value": 13329.147467453004,
+    "trades": 179,
+    "win_rate": 0.4581673306772908,
+    "epsilon": 0.41714886732545814,
+    "validation_value": NaN
+  },
+  {
+    "episode": 292,
+    "reward": -0.20961066106658913,
+    "portfolio_value": 13553.230534469603,
+    "trades": 179,
+    "win_rate": 0.42231075697211157,
+    "epsilon": 0.41589742072348174,
+    "validation_value": NaN
+  },
+  {
+    "episode": 293,
+    "reward": -0.3958717339224267,
+    "portfolio_value": 13515.96412929535,
+    "trades": 186,
+    "win_rate": 0.4063745019920319,
+    "epsilon": 0.4146497284613113,
+    "validation_value": NaN
+  },
+  {
+    "episode": 294,
+    "reward": -0.9493463532267756,
+    "portfolio_value": 12785.15724320221,
+    "trades": 162,
+    "win_rate": 0.33067729083665337,
+    "epsilon": 0.41340577927592737,
+    "validation_value": NaN
+  },
+  {
+    "episode": 295,
+    "reward": -0.2527886209988385,
+    "portfolio_value": 12468.793548355103,
+    "trades": 180,
+    "win_rate": 0.4541832669322709,
+    "epsilon": 0.41216556193809956,
+    "validation_value": 10682.660822280883
+  },
+  {
+    "episode": 296,
+    "reward": -0.6151601958386244,
+    "portfolio_value": 11899.614775558468,
+    "trades": 174,
+    "win_rate": 0.3745019920318725,
+    "epsilon": 0.41092906525228523,
+    "validation_value": NaN
+  },
+  {
+    "episode": 297,
+    "reward": -0.19397612556884516,
+    "portfolio_value": 13294.492338592532,
+    "trades": 175,
+    "win_rate": 0.41434262948207173,
+    "epsilon": 0.40969627805652836,
+    "validation_value": NaN
+  },
+  {
+    "episode": 298,
+    "reward": -0.8309893735836807,
+    "portfolio_value": 11821.343005416873,
+    "trades": 176,
+    "win_rate": 0.36254980079681276,
+    "epsilon": 0.40846718922235875,
+    "validation_value": NaN
+  },
+  {
+    "episode": 299,
+    "reward": -1.1678832146759024,
+    "portfolio_value": 11902.17559358216,
+    "trades": 190,
+    "win_rate": 0.33067729083665337,
+    "epsilon": 0.40724178765469166,
+    "validation_value": NaN
+  },
+  {
+    "episode": 300,
+    "reward": -1.401565254516759,
+    "portfolio_value": 16898.923791168207,
+    "trades": 132,
+    "win_rate": 0.4063745019920319,
+    "epsilon": 0.4060200622917276,
+    "validation_value": 10499.630867431631
+  }
+]
