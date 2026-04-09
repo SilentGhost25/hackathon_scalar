@@ -1,0 +1,8 @@
+flask
+numpy
+openai
+pandas
+pydantic
+pyyaml
+torch
+yfinance

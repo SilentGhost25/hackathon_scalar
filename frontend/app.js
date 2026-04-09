@@ -3,6 +3,7 @@
 const API = {
   liveData: '/api/live-data?seed=1001',
   summary: '/api/summary',
+  openenv: '/openenv',
 };
 
 const STATE = {
@@ -579,6 +580,32 @@ function renderSummary(payload) {
   if (kpiDD) kpiDD.textContent = `−${(payload.metrics.max_drawdown * 100).toFixed(1)}%`;
 }
 
+async function loadOpenEnvDiscovery() {
+  const res = await fetch(API.openenv, { cache: 'no-store' });
+  if (!res.ok) {
+    throw new Error(`Failed to fetch OpenEnv discovery: ${res.status}`);
+  }
+  return res.json();
+}
+
+function renderOpenEnvSpotlight(payload) {
+  const pathEl = el('openenvPath');
+  const descEl = el('openenvDescription');
+  const methodsEl = el('openenvMethods');
+  const exampleEl = el('openenvExample');
+
+  if (pathEl) pathEl.textContent = `GET ${payload.path}`;
+  if (descEl) descEl.textContent = payload.description;
+  if (methodsEl && Array.isArray(payload.methods)) {
+    methodsEl.innerHTML = payload.methods
+      .map((method) => `<span class="hero-api-method ${method.toLowerCase()}">${method}</span>`)
+      .join('');
+  }
+  if (exampleEl && Array.isArray(payload.post_examples) && payload.post_examples.length) {
+    exampleEl.textContent = JSON.stringify(payload.post_examples[payload.post_examples.length - 1], null, 2);
+  }
+}
+
 async function boot() {
   initNavbar();
   initParticles();
@@ -601,6 +628,9 @@ async function boot() {
   STATE.charts.compare = buildComparisonChart();
 
   try {
+    const discovery = await loadOpenEnvDiscovery();
+    renderOpenEnvSpotlight(discovery);
+
     const payload = await loadLiveData();
     setSourceBanner(payload.source, payload.ticker, payload.period, payload.interval);
     renderSummary(payload);

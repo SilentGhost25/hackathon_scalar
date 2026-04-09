@@ -1,0 +1,34 @@
+name: stock-trading-openenv
+version: 1.0.0
+description: OpenEnv-compatible stock trading environment for real-world portfolio management tasks.
+entrypoint: stock_rl_project.openenv_env:StockTradingOpenEnv
+tags:
+  - openenv
+  - finance
+  - reinforcement-learning
+  - huggingface-space
+metadata:
+  author: Tarun J
+  simulator_type: real-world-task
+  observation_model: stock_rl_project.openenv_env:TradingObservation
+  action_model: stock_rl_project.openenv_env:TradingAction
+  reward_model: stock_rl_project.openenv_env:TradingReward
+tasks:
+  - id: easy_profit
+    difficulty: easy
+    objective: Finish with a positive return while avoiding wasteful overtrading.
+  - id: medium_outperform
+    difficulty: medium
+    objective: Beat buy-and-hold while keeping drawdown below 9 percent.
+  - id: hard_risk_managed
+    difficulty: hard
+    objective: Deliver strong returns under a tight drawdown cap with selective trades.
+runtime:
+  reset_method: reset
+  step_method: step
+  state_method: state
+validation:
+  deterministic_tasks: true
+  reward_range:
+    min: -1.0
+    max: 1.0

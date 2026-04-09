@@ -151,6 +151,88 @@ def run_episode(seed: int = 1001) -> Dict[str, Any]:
     }
 
 
+def build_openenv_discovery() -> Dict[str, Any]:
+    agent = load_agent()
+    return {
+        "name": "openenv",
+        "path": "/openenv",
+        "methods": ["GET", "POST"],
+        "description": "Single entrypoint for discovering and running the stock trading OpenEnv service.",
+        "operations": {
+            "GET /openenv": "Returns endpoint metadata, supported operations, and default configuration.",
+            "POST /openenv": "Executes JSON operations such as summary, live-data, or evaluate.",
+        },
+        "post_examples": [
+            {"operation": "summary"},
+            {"operation": "live-data", "seed": 1001},
+            {"operation": "evaluate", "episodes": 3, "seed": 1001},
+        ],
+        "defaults": {
+            "ticker": "AAPL",
+            "period": "5d",
+            "interval": "15m",
+            "episodes": 3,
+            "seed": 1001,
+        },
+        "model": {
+            "state_size": ENV_CONFIG["state_size"],
+            "action_size": ENV_CONFIG["action_size"],
+            "epsilon": agent.epsilon,
+            "model_path": MODEL_PATH,
+            "model_loaded": os.path.exists(MODEL_PATH),
+        },
+        "generated_at": datetime.utcnow().isoformat() + "Z",
+    }
+
+
+def build_summary_payload() -> Dict[str, Any]:
+    agent = load_agent()
+    return {
+        "state_size": ENV_CONFIG["state_size"],
+        "action_size": ENV_CONFIG["action_size"],
+        "model_path": MODEL_PATH,
+        "epsilon": agent.epsilon,
+        "trade_cooldown": int(getattr(agent, "cfg", {}).get("min_trade_advantage", 0) > 0),
+        "default_ticker": "AAPL",
+        "default_period": "5d",
+        "default_interval": "15m",
+    }
+
+
+def build_evaluation_payload(episodes: int, base_seed: int) -> Dict[str, Any]:
+    runs = [run_episode(seed=base_seed + i) for i in range(episodes)]
+
+    profits = [run["metrics"]["total_profit"] for run in runs]
+    returns = [run["metrics"]["return_pct"] for run in runs]
+    dir_accs = []
+    for run in runs:
+        actions = run["actions"]
+        prices = run["prices"]
+        correct = 0
+        attempts = 0
+        for idx, action in enumerate(actions):
+            if action not in (1, 2):
+                continue
+            attempts += 1
+            if idx + 1 >= len(prices):
+                continue
+            if (action == 1 and prices[idx + 1] >= prices[idx]) or (action == 2 and prices[idx + 1] <= prices[idx]):
+                correct += 1
+        dir_accs.append(correct / attempts if attempts else None)
+
+    latest = runs[-1]
+    return {
+        "episodes": episodes,
+        "aggregate": {
+            "avg_profit": float(np.mean(profits)),
+            "avg_return_pct": float(np.mean(returns)),
+            "avg_directional_accuracy": float(np.mean([x for x in dir_accs if x is not None])) if any(x is not None for x in dir_accs) else None,
+            "avg_trades": float(np.mean([run["metrics"]["total_trades"] for run in runs])),
+        },
+        "latest": latest,
+    }
+
+
 @app.get("/")
 def index():
     return send_from_directory(FRONTEND_ROOT, "index.html")
@@ -179,19 +261,7 @@ def health():
 
 @app.get("/api/summary")
 def summary():
-    agent = load_agent()
-    return jsonify(
-        {
-            "state_size": ENV_CONFIG["state_size"],
-            "action_size": ENV_CONFIG["action_size"],
-            "model_path": MODEL_PATH,
-            "epsilon": agent.epsilon,
-            "trade_cooldown": int(getattr(agent, "cfg", {}).get("min_trade_advantage", 0) > 0),
-            "default_ticker": "AAPL",
-            "default_period": "5d",
-            "default_interval": "15m",
-        }
-    )
+    return jsonify(build_summary_payload())
 
 
 @app.get("/api/live-data")
@@ -205,38 +275,37 @@ def evaluate():
     payload = request.get_json(silent=True) or {}
     episodes = int(payload.get("episodes", 3))
     base_seed = int(payload.get("seed", 1001))
-    runs = [run_episode(seed=base_seed + i) for i in range(episodes)]
+    return jsonify(build_evaluation_payload(episodes=episodes, base_seed=base_seed))
 
-    profits = [run["metrics"]["total_profit"] for run in runs]
-    returns = [run["metrics"]["return_pct"] for run in runs]
-    dir_accs = []
-    for run in runs:
-        actions = run["actions"]
-        prices = run["prices"]
-        correct = 0
-        attempts = 0
-        for idx, action in enumerate(actions):
-            if action not in (1, 2):
-                continue
-            attempts += 1
-            if idx + 1 >= len(prices):
-                continue
-            if (action == 1 and prices[idx + 1] >= prices[idx]) or (action == 2 and prices[idx + 1] <= prices[idx]):
-                correct += 1
-        dir_accs.append(correct / attempts if attempts else None)
 
-    latest = runs[-1]
-    return jsonify(
-        {
-            "episodes": episodes,
-            "aggregate": {
-                "avg_profit": float(np.mean(profits)),
-                "avg_return_pct": float(np.mean(returns)),
-                "avg_directional_accuracy": float(np.mean([x for x in dir_accs if x is not None])) if any(x is not None for x in dir_accs) else None,
-                "avg_trades": float(np.mean([run["metrics"]["total_trades"] for run in runs])),
-            },
-            "latest": latest,
-        }
+@app.route("/openenv", methods=["GET", "POST"])
+def openenv_endpoint():
+    if request.method == "GET":
+        return jsonify(build_openenv_discovery())
+
+    payload = request.get_json(silent=True) or {}
+    operation = str(payload.get("operation", "summary")).strip().lower()
+
+    if operation == "summary":
+        return jsonify({"operation": "summary", **build_summary_payload()})
+
+    if operation in {"live-data", "live_data", "episode", "run"}:
+        seed = int(payload.get("seed", 1001))
+        return jsonify({"operation": "live-data", "result": run_episode(seed=seed)})
+
+    if operation == "evaluate":
+        episodes = int(payload.get("episodes", 3))
+        base_seed = int(payload.get("seed", 1001))
+        return jsonify({"operation": "evaluate", **build_evaluation_payload(episodes=episodes, base_seed=base_seed)})
+
+    return (
+        jsonify(
+            {
+                "error": "unsupported operation",
+                "supported_operations": ["summary", "live-data", "evaluate"],
+            }
+        ),
+        400,
     )
 
 
