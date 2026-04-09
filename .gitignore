@@ -1,0 +1,16 @@
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+*.log
+*.err.log
+*.out.log
+
+*.db
+
+.dist/
+.yfinance_cache_test/
+
+saved_models/
+stock_rl_project/plots/*.json
