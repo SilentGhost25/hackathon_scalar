@@ -1,7 +1,7 @@
 ---
 title: Stock Trading OpenEnv
 sdk: docker
-app_port: 5000
+app_port: 7860
 tags:
   - openenv
   - finance

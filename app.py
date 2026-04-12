@@ -14,5 +14,5 @@ from web_app import app  # noqa: E402
 
 
 if __name__ == "__main__":
-    port = int(os.environ.get("PORT", "5000"))
+    port = int(os.environ.get("PORT", "7860"))
     app.run(debug=False, use_reloader=False, host="0.0.0.0", port=port)
