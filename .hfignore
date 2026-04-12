@@ -1,0 +1,13 @@
+.git/
+.github/
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+.DS_Store
+.yfinance_cache/
+.yfinance_cache_test/
+plots/
+flask_stderr.log
+flask_stdout.log
+server.err.log
+server.out.log
