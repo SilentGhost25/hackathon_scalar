@@ -15,6 +15,7 @@ from config import DQN_CONFIG, ENV_CONFIG
 from data.price_generator import generate_stock_prices
 from env.stock_env import StockTradingEnv
 from models.dqn_agent import DQNAgent
+from openenv_env import StockTradingOpenEnv, summarize_all_tasks
 
 
 PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
@@ -34,6 +35,14 @@ app = Flask(
 
 _model_lock = threading.Lock()
 _cached_agent: DQNAgent | None = None
+_openenv_lock = threading.Lock()
+_openenv = StockTradingOpenEnv()
+
+
+def dump_model(model: Any) -> Dict[str, Any]:
+    if hasattr(model, "model_dump"):
+        return model.model_dump()
+    return model.dict()
 
 
 def build_market_frame(prices: np.ndarray) -> pd.DataFrame:
@@ -160,9 +169,15 @@ def build_openenv_discovery() -> Dict[str, Any]:
         "description": "Single entrypoint for discovering and running the stock trading OpenEnv service.",
         "operations": {
             "GET /openenv": "Returns endpoint metadata, supported operations, and default configuration.",
-            "POST /openenv": "Executes JSON operations such as summary, live-data, or evaluate.",
+            "POST /openenv": "Executes JSON operations such as reset, step, state, grade, tasks, summary, live-data, or evaluate.",
+            "POST /openenv/reset": "Resets the OpenEnv task and returns an observation.",
+            "POST /openenv/step": "Applies an action and returns observation, reward, done, and info.",
+            "GET /openenv/state": "Returns the current OpenEnv state.",
         },
         "post_examples": [
+            {"operation": "reset", "task_id": "easy_profit"},
+            {"operation": "step", "action": {"action": "buy", "rationale": "price is above moving average"}},
+            {"operation": "state"},
             {"operation": "summary"},
             {"operation": "live-data", "seed": 1001},
             {"operation": "evaluate", "episodes": 3, "seed": 1001},
@@ -181,8 +196,69 @@ def build_openenv_discovery() -> Dict[str, Any]:
             "model_path": MODEL_PATH,
             "model_loaded": os.path.exists(MODEL_PATH),
         },
+        "tasks": _openenv.list_tasks(),
         "generated_at": datetime.utcnow().isoformat() + "Z",
     }
+
+
+def normalize_action_payload(payload: Dict[str, Any]) -> Dict[str, Any]:
+    raw_action = payload.get("action", "hold")
+    if isinstance(raw_action, str):
+        return {"action": raw_action, "rationale": payload.get("rationale")}
+    if isinstance(raw_action, dict):
+        return raw_action
+    return {"action": "hold", "rationale": "Unsupported action payload; defaulted to hold."}
+
+
+def openenv_reset_payload(payload: Dict[str, Any]) -> Dict[str, Any]:
+    task_id = payload.get("task_id")
+    with _openenv_lock:
+        observation = _openenv.reset(task_id=task_id)
+    return {"operation": "reset", "observation": dump_model(observation)}
+
+
+def openenv_step_payload(payload: Dict[str, Any]) -> Dict[str, Any]:
+    with _openenv_lock:
+        if _openenv.env is None:
+            _openenv.reset(task_id=payload.get("task_id"))
+        observation, reward, done, info = _openenv.step(normalize_action_payload(payload))
+    return {
+        "operation": "step",
+        "observation": dump_model(observation),
+        "reward": dump_model(reward),
+        "done": done,
+        "info": info,
+    }
+
+
+def openenv_state_payload() -> Dict[str, Any]:
+    with _openenv_lock:
+        if _openenv.env is None:
+            _openenv.reset()
+        state = _openenv.state()
+    return {"operation": "state", "state": dump_model(state)}
+
+
+def openenv_grade_payload() -> Dict[str, Any]:
+    with _openenv_lock:
+        if _openenv.env is None:
+            _openenv.reset()
+        grade = _openenv.grade_run()
+    return {"operation": "grade", "grader": dump_model(grade)}
+
+
+def openenv_all_tasks_payload() -> Dict[str, Any]:
+    scores = []
+    with _openenv_lock:
+        for task in _openenv.list_tasks():
+            observation = _openenv.reset(task_id=task["task_id"])
+            while True:
+                action = "buy" if observation.current_price > observation.ma10 and observation.shares_held == 0 else "hold"
+                observation, _reward, done, _info = _openenv.step({"action": action})
+                if done:
+                    break
+            scores.append(_openenv.grade_run())
+    return {"operation": "all_tasks", **summarize_all_tasks(scores)}
 
 
 def build_summary_payload() -> Dict[str, Any]:
@@ -278,13 +354,82 @@ def evaluate():
     return jsonify(build_evaluation_payload(episodes=episodes, base_seed=base_seed))
 
 
+@app.get("/openenv/tasks")
+def openenv_tasks_route():
+    return jsonify({"operation": "tasks", "tasks": _openenv.list_tasks()})
+
+
+@app.route("/openenv/reset", methods=["GET", "POST"])
+def openenv_reset_route():
+    payload = request.get_json(silent=True) or {}
+    return jsonify(openenv_reset_payload(payload))
+
+
+@app.post("/openenv/step")
+def openenv_step_route():
+    payload = request.get_json(silent=True) or {}
+    return jsonify(openenv_step_payload(payload))
+
+
+@app.route("/openenv/state", methods=["GET", "POST"])
+def openenv_state_route():
+    return jsonify(openenv_state_payload())
+
+
+@app.route("/openenv/grade", methods=["GET", "POST"])
+def openenv_grade_route():
+    return jsonify(openenv_grade_payload())
+
+
+@app.route("/reset", methods=["GET", "POST"])
+def root_reset_route():
+    payload = request.get_json(silent=True) or {}
+    return jsonify(openenv_reset_payload(payload))
+
+
+@app.post("/step")
+def root_step_route():
+    payload = request.get_json(silent=True) or {}
+    return jsonify(openenv_step_payload(payload))
+
+
+@app.route("/state", methods=["GET", "POST"])
+def root_state_route():
+    return jsonify(openenv_state_payload())
+
+
 @app.route("/openenv", methods=["GET", "POST"])
 def openenv_endpoint():
     if request.method == "GET":
         return jsonify(build_openenv_discovery())
 
     payload = request.get_json(silent=True) or {}
-    operation = str(payload.get("operation", "summary")).strip().lower()
+    operation_value = payload.get("operation", payload.get("method"))
+    if operation_value is None and "action" in payload:
+        operation_value = "step"
+    elif operation_value is None and "task_id" in payload:
+        operation_value = "reset"
+    elif operation_value is None:
+        operation_value = "summary"
+    operation = str(operation_value).strip().lower()
+
+    if operation == "reset":
+        return jsonify(openenv_reset_payload(payload))
+
+    if operation == "step":
+        return jsonify(openenv_step_payload(payload))
+
+    if operation == "state":
+        return jsonify(openenv_state_payload())
+
+    if operation in {"grade", "score"}:
+        return jsonify(openenv_grade_payload())
+
+    if operation in {"tasks", "list_tasks"}:
+        return jsonify({"operation": "tasks", "tasks": _openenv.list_tasks()})
+
+    if operation in {"all_tasks", "run_all_tasks"}:
+        return jsonify(openenv_all_tasks_payload())
 
     if operation == "summary":
         return jsonify({"operation": "summary", **build_summary_payload()})
@@ -302,7 +447,17 @@ def openenv_endpoint():
         jsonify(
             {
                 "error": "unsupported operation",
-                "supported_operations": ["summary", "live-data", "evaluate"],
+                "supported_operations": [
+                    "reset",
+                    "step",
+                    "state",
+                    "grade",
+                    "tasks",
+                    "all_tasks",
+                    "summary",
+                    "live-data",
+                    "evaluate",
+                ],
             }
         ),
         400,
